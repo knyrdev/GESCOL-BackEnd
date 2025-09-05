@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+
+  gescol-backend:
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    ports:
+      - "3001:3001"
+    links:
+      - pstg
+    volumes:
+      - .:/home/app
+
+  pstg:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      - POSTGRES_PASSWORD=gescoldb
+      - POSRGRES_USER=gescol
+    volumes:
+      - gescol-data:/var/lib/postgresql/data
+    ports:
+      - 8080:8080
+
+volumes:
+  gescol-data:

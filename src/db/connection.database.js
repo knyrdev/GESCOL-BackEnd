@@ -8,7 +8,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 // Cargar las variables de entorno desde el archivo .env
 dotenv.config({
-  path: path.join(__dirname, '../../../.env')
+  path: path.join(__dirname, '../../.ENV')
 })
 
 const { Pool } = pg

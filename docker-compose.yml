@@ -1,23 +1,33 @@
 services:
-
-  gescol-backend:
-    build: .
-    ports:
-      - "3001:3001"
-    links:
-      - pstg
-
   pstg:
-    image: postgres
+    image: postgres:16-alpine
+    container_name: pstg
     restart: always
-    shm_size: 128mb
     environment:
       - POSTGRES_PASSWORD=gescoldb
       - POSRGRES_USER=gescol
+      - POSTGRES_DB=gescoldb
+    ports:
+      - "5433:5432"
     volumes:
       - gescol-data:/var/lib/postgresql/data
+    networks:
+      - gescol-network
+
+  gescol-backend:
+    build: .
+    container_name: gescol-backend
+    restart: always
     ports:
-      - 8080:8080
+      - "3001:3001"
+    depends_on:
+      - pstg
+    networks:
+      - gescol-network
+
+networks:
+  gescol-network:
+    driver: bridge
 
 volumes:
   gescol-data:

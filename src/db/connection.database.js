@@ -15,16 +15,6 @@ const { Pool } = pg
 
 // Intenta leer el puerto dinámico generado por Electron
 let dynamicPort = 5432;
-try {
-  const portFile = path.join(process.env.APPDATA, 'GESCOL', 'postgres_port.json');
-  if (fs.existsSync(portFile)) {
-    const { port } = JSON.parse(fs.readFileSync(portFile, 'utf8'));
-    if (port) dynamicPort = port;
-  }
-} catch (e) {
-  // Si falla, usa el puerto por defecto
-}
-
 // Extrae los datos de la URL original
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL no está definida. Verifica tu archivo .env y su ubicación.");

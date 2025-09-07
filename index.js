@@ -46,7 +46,7 @@ app.get("/test-db-connection", async (req, res) => {
       currentTime: result.rows[0].current_time,
     })
   } catch (error) {
-    console.error("Error al probar la conexión a la base de datos:", error)
+    console.error("Error al probar la conexin a la base de datos:", error)
     res.status(500).json({
       ok: false,
       message: "Fallo al conectar a la base de datos.",
@@ -64,7 +64,6 @@ export function startServer(port = PORT) {
   )
 }
 
-// // Si el archivo se ejecuta directamente, iniciar el servidor automáticamente
-// if (process.env.NODE_ENV !== 'test' && require.main === module) {
-//   startServer()
-// }
+if (process.env.NODE_ENV !== 'test') {
+  startServer()
+}

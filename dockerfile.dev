@@ -1,6 +1,7 @@
 FROM node:18
 
-RUN npm i -g nodemon
+RUN npm i nodemon
+
 RUN mkdir -p /home/app
 
 WORKDIR /home/app 

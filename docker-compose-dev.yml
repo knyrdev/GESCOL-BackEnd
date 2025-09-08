@@ -1,6 +1,4 @@
-version: "3.9"
 services:
-
   gescol-backend:
     build:
       context: .
@@ -17,12 +15,10 @@ services:
     restart: always
     shm_size: 128mb
     environment:
+      - POSTGRES_DB=gescol
       - POSTGRES_PASSWORD=gescoldb
       - POSRGRES_USER=gescol
     volumes:
       - gescol-data:/var/lib/postgresql/data
-    ports:
-      - 8080:8080
-
 volumes:
   gescol-data:

@@ -1,4 +1,3 @@
-version: "3.9"
 services:
 
   gescol-backend:
@@ -14,6 +13,7 @@ services:
     shm_size: 128mb
     environment:
       - POSTGRES_PASSWORD=gescoldb
+      - POSRGRES_USER=gescol
     volumes:
       - gescol-data:/var/lib/postgresql/data
     ports:

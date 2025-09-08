@@ -15,6 +15,7 @@ const { Pool } = pg
 
 // Intenta leer el puerto dinámico generado por Electron
 let dynamicPort = 5432;
+
 // Extrae los datos de la URL original
 if (!process.env.DATABASE_URL) {
   throw new Error("DATABASE_URL no está definida. Verifica tu archivo .env y su ubicación.");

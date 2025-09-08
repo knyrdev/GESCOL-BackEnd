@@ -4,11 +4,11 @@ services:
     container_name: pstg
     restart: always
     environment:
-      - POSTGRES_PASSWORD=gescoldb
-      - POSRGRES_USER=gescol
-      - POSTGRES_DB=gescoldb
+      - POSTGRES_PASSWORD=gescol
+      - POSTGRES_USER=gescol
+      - POSTGRES_DB=gescol
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - gescol-data:/var/lib/postgresql/data
     networks:

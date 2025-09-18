@@ -1,4 +1,4 @@
-FROM node:20.17.0
+FROM node:20.17.0-alpine
 
 WORKDIR /home/app
 
@@ -10,4 +10,4 @@ COPY . .
 
 EXPOSE 3001
 
-CMD ["pm2-runtime", "start", "index.js", "--name", "gescol-backend", "--env", "production"]
+CMD ["node", "index.js", "--name", "gescol-backend", "--env", "production"]

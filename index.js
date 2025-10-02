@@ -57,9 +57,9 @@ app.get("/test-db-connection", async (req, res) => {
 
 // Configuración del puerto
 const PORT = process.env.PORT || 3001
-
+const host = process.env.HOST || '0.0.0.0'
 export function startServer(port = PORT) {
-  return app.listen(port, () =>
+  return app.listen(port, host,() =>
     console.log(`Servidor corriendo en el puerto ${port}`)
   )
 }

@@ -1,72 +1,154 @@
 import { BrigadaModel } from "../models/brigada.model.js"
+import { notFound, conflict, badRequest } from "../utils/AppError.js"
 
 class BrigadaService {
-  // Validar datos de brigada
-  static validateBrigadeData(data) {
-    const errors = []
-
-    if (!data.name || !data.name.trim()) {
-      errors.push("El nombre de la brigada es requerido")
-    }
-
-    if (data.name && data.name.length > 100) {
-      errors.push("El nombre de la brigada no puede exceder 100 caracteres")
-    }
-
-    if (data.name && data.name.length < 3) {
-      errors.push("El nombre de la brigada debe tener al menos 3 caracteres")
-    }
-
-    return errors
+  /**
+   * Get all brigades.
+   */
+  async getAllBrigades(academicPeriodId = null) {
+    const brigades = await BrigadaModel.findAll(academicPeriodId)
+    return this.formatBrigadeList(brigades)
   }
 
-  // Validar asignación de docente
-  static validateTeacherAssignment(data) {
-    const errors = []
-
-    if (!data.personalId) {
-      errors.push("El ID del personal es requerido")
-    }
-
-    if (data.personalId && (isNaN(data.personalId) || data.personalId <= 0)) {
-      errors.push("El ID del personal debe ser un número válido")
-    }
-
-    if (data.startDate && isNaN(Date.parse(data.startDate))) {
-      errors.push("La fecha de inicio debe ser válida")
-    }
-
-    return errors
+  /**
+   * Get brigade by ID.
+   */
+  async getBrigadeById(id, academicPeriodId = null) {
+    const brigade = await BrigadaModel.findById(id, academicPeriodId)
+    if (!brigade) throw notFound("Brigada no encontrada")
+    return this.formatBrigadeData(brigade)
   }
 
-  // Validar inscripción de estudiantes
-  static validateStudentEnrollment(data) {
-    const errors = []
-
-    if (!data.studentIds || !Array.isArray(data.studentIds)) {
-      errors.push("Debe proporcionar una lista de IDs de estudiantes")
+  /**
+   * Create a new brigade.
+   */
+  async createBrigade(name) {
+    try {
+      return await BrigadaModel.create({ name: name.trim() })
+    } catch (error) {
+      if (error.code === "23505") throw conflict("Ya existe una brigada con ese nombre")
+      throw error
     }
-
-    if (data.studentIds && data.studentIds.length === 0) {
-      errors.push("Debe seleccionar al menos un estudiante")
-    }
-
-    if (data.studentIds && data.studentIds.length > 50) {
-      errors.push("No puede inscribir más de 50 estudiantes a la vez")
-    }
-
-    if (data.studentIds) {
-      const invalidIds = data.studentIds.filter((id) => isNaN(id) || id <= 0)
-      if (invalidIds.length > 0) {
-        errors.push("Todos los IDs de estudiantes deben ser números válidos")
-      }
-    }
-
-    return errors
   }
 
-  // Procesar datos de brigada para respuesta
-  static formatBrigadeData(brigade) {
+  /**
+   * Update an existing brigade.
+   */
+  async updateBrigade(id, name) {
+    // Check existence
+    const existing = await BrigadaModel.findById(id)
+    if (!existing) throw notFound("Brigada no encontrada")
+
+    try {
+      return await BrigadaModel.update(id, { name: name.trim() })
+    } catch (error) {
+      if (error.code === "23505") throw conflict("Ya existe una brigada con ese nombre")
+      throw error
+    }
+  }
+
+  /**
+   * Delete a brigade.
+   */
+  async deleteBrigade(id) {
+    const existing = await BrigadaModel.findById(id)
+    if (!existing) throw notFound("Brigada no encontrada")
+    return await BrigadaModel.remove(id)
+  }
+
+  /**
+   * Search brigades by name.
+   */
+  async searchBrigades(name, academicPeriodId = null) {
+    return await BrigadaModel.searchByName(name.trim(), academicPeriodId)
+  }
+
+  /**
+   * Get students in a brigade.
+   */
+  async getBrigadeStudents(id, academicPeriodId = null) {
+    const brigade = await BrigadaModel.findById(id, academicPeriodId)
+    if (!brigade) throw notFound("Brigada no encontrada")
+    return await BrigadaModel.getStudentsByBrigade(id, academicPeriodId)
+  }
+
+  /**
+   * Assign a teacher to a brigade.
+   */
+  async assignTeacher(id, personalId, startDate, academicPeriodId = null) {
+    const brigade = await BrigadaModel.findById(id)
+    if (!brigade) throw notFound("Brigada no encontrada")
+
+    return await BrigadaModel.assignTeacher(
+      id,
+      personalId,
+      startDate || new Date().toISOString().split("T")[0],
+      academicPeriodId
+    )
+  }
+
+  /**
+   * Remove teacher from brigade.
+   */
+  async removeTeacher(id, academicPeriodId = null) {
+    const brigade = await BrigadaModel.findById(id)
+    if (!brigade) throw notFound("Brigada no encontrada")
+
+    const result = await BrigadaModel.removeTeacher(id, academicPeriodId)
+    if (!result.removed) {
+      throw notFound("No hay docente asignado a esta brigada para el período especificado")
+    }
+    return result
+  }
+
+  /**
+   * Enroll students in a brigade.
+   */
+  async enrollStudents(id, studentIds, academicPeriodId = null) {
+    const brigade = await BrigadaModel.findById(id)
+    if (!brigade) throw notFound("Brigada no encontrada")
+
+    return await BrigadaModel.enrollStudents(id, studentIds, academicPeriodId)
+  }
+
+  /**
+   * Clear all students from a brigade.
+   */
+  async clearBrigade(id, academicPeriodId = null) {
+    const brigade = await BrigadaModel.findById(id)
+    if (!brigade) throw notFound("Brigada no encontrada")
+
+    return await BrigadaModel.clearBrigade(id, academicPeriodId)
+  }
+
+  /**
+   * Get students available for enrollment.
+   */
+  async getAvailableStudents(academicPeriodId = null) {
+    return await BrigadaModel.getAvailableStudents(academicPeriodId)
+  }
+
+  /**
+   * Get teachers available for assignment.
+   */
+  async getAvailableTeachers(academicPeriodId = null) {
+    return await BrigadaModel.getAvailableTeachers(academicPeriodId)
+  }
+
+  /**
+   * Remove a specific student from a brigade.
+   */
+  async removeStudentFromBrigade(id, studentId, academicPeriodId = null) {
+    const result = await BrigadaModel.removeStudentFromBrigade(id, studentId, academicPeriodId)
+    if (!result.removed) {
+      throw notFound("Estudiante no encontrado en la brigada para el período especificado")
+    }
+    return result
+  }
+
+  // ─── Formatters ──────────────────────────────────────────────────────
+
+  formatBrigadeData(brigade) {
     return {
       id: brigade.id,
       name: brigade.name,
@@ -75,76 +157,12 @@ class BrigadaService {
       encargado_ci: brigade.encargado_ci || null,
       fecha_inicio: brigade.fecha_inicio || null,
       studentCount: Number.parseInt(brigade.studentCount) || 0,
-      created_at: brigade.created_at || null,
-      updated_at: brigade.updated_at || null,
     }
   }
 
-  // Procesar lista de brigadas
-  static formatBrigadeList(brigades) {
-    return brigades.map(this.formatBrigadeData)
-  }
-
-  // Obtener estadísticas de brigada
-  static async getBrigadeStatistics(brigadeId) {
-    try {
-      const brigade = await BrigadaModel.findById(brigadeId)
-      if (!brigade) {
-        throw new Error("Brigada no encontrada")
-      }
-
-      const students = await BrigadaModel.getStudentsByBrigade(brigadeId)
-
-      const stats = {
-        totalStudents: students.length,
-        maleStudents: students.filter((s) => s.sex === "Masculino").length,
-        femaleStudents: students.filter((s) => s.sex === "Femenino").length,
-        gradeDistribution: {},
-      }
-
-      // Distribución por grado
-      students.forEach((student) => {
-        const grade = student.grade_name || "Sin grado"
-        stats.gradeDistribution[grade] = (stats.gradeDistribution[grade] || 0) + 1
-      })
-
-      return {
-        brigade,
-        statistics: stats,
-        students,
-      }
-    } catch (error) {
-      console.error("Error obteniendo estadísticas de brigada:", error)
-      throw error
-    }
-  }
-
-  // Generar reporte de brigada
-  static async generateBrigadeReport(brigadeId) {
-    try {
-      const brigadeData = await this.getBrigadeStatistics(brigadeId)
-
-      const report = {
-        brigada: brigadeData.brigade,
-        estadisticas: brigadeData.statistics,
-        estudiantes: brigadeData.students,
-        fechaReporte: new Date().toISOString(),
-        resumen: {
-          nombre: brigadeData.brigade.name,
-          encargado: brigadeData.brigade.encargado_name
-            ? `${brigadeData.brigade.encargado_name} ${brigadeData.brigade.encargado_lastName}`
-            : "Sin asignar",
-          totalEstudiantes: brigadeData.statistics.totalStudents,
-          fechaInicio: brigadeData.brigade.fecha_inicio,
-        },
-      }
-
-      return report
-    } catch (error) {
-      console.error("Error generando reporte de brigada:", error)
-      throw error
-    }
+  formatBrigadeList(brigades) {
+    return brigades.map(b => this.formatBrigadeData(b))
   }
 }
 
-export default BrigadaService
+export default new BrigadaService()

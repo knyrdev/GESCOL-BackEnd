@@ -1,17 +1,13 @@
 import { db } from "../db/connection.database.js"
-import bcryptjs from "bcryptjs"
 
 const create = async ({
   username,
-  password,
+  password, // Now expects hashed password from service
   securityWord,
   securityAnswer,
   personalId,
 }) => {
   try {
-    const salt = await bcryptjs.genSalt(10)
-    const hashedPassword = await bcryptjs.hash(password, salt)
-
     const query = {
       text: `
         INSERT INTO "usuario" (
@@ -22,7 +18,7 @@ const create = async ({
         VALUES ($1, $2, $3, $4, $5, true, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
         RETURNING "id", "username", "personal_id", "is_active", "created_at"
       `,
-      values: [username, hashedPassword, securityWord, securityAnswer, personalId],
+      values: [username, password, securityWord, securityAnswer, personalId],
     }
     const { rows } = await db.query(query)
     return rows[0]

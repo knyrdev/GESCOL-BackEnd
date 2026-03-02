@@ -10,6 +10,8 @@ import representativeRoutes from "./src/routes/representative.route.js"
 import brigadaRoutes from "./src/routes/brigada.route.js"
 import dashboardRoutes from "./src/routes/dashboard.route.js"
 import { db } from "./src/db/connection.database.js"
+import healthRoute from "./src/routes/health.route.js"
+import { errorHandler, notFoundHandler } from "./src/middlewares/errorHandler.middleware.js"
 
 const app = express()
 
@@ -36,24 +38,12 @@ app.use("/api/representatives", representativeRoutes)
 app.use("/api/brigadas", brigadaRoutes)
 app.use("/api/dashboard", dashboardRoutes)
 
-// Ruta de prueba para la base de datos
-app.get("/test-db-connection", async (req, res) => {
-  try {
-    const result = await db.query("SELECT NOW() as current_time;")
-    res.json({
-      ok: true,
-      message: "Conexión a la base de datos exitosa!",
-      currentTime: result.rows[0].current_time,
-    })
-  } catch (error) {
-    console.error("Error al probar la conexin a la base de datos:", error)
-    res.status(500).json({
-      ok: false,
-      message: "Fallo al conectar a la base de datos.",
-      error: error.message,
-    })
-  }
-})
+// Health check
+app.use("/api/health", healthRoute)
+
+// ── Error handling (must be registered AFTER all routes) ──────────────────
+app.use(notFoundHandler)
+app.use(errorHandler)
 
 // Configuración del puerto
 const PORT = process.env.PORT || 3001

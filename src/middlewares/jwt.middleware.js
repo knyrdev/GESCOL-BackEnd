@@ -1,123 +1,72 @@
 import jwt from "jsonwebtoken"
 import { UserModel } from "../models/user.model.js"
+import { JWT_SECRET } from "../config/jwt.config.js"
+import { unauthorized, forbidden } from "../utils/AppError.js"
 
-// Claves por defecto para desarrollo
-const JWT_SECRET = process.env.JWT_SECRET || "escuela-jwt-secret-key-2024-development"
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "escuela-refresh-secret-key-2024-development"
-
+/**
+ * Middleware to verify the JWT access token.
+ */
 export const verifyToken = async (req, res, next) => {
   try {
-    console.log("🔍 MIDDLEWARE - Iniciando verificación de token")
-
     const authHeader = req.headers.authorization
-    console.log("🔍 MIDDLEWARE - Authorization header:", authHeader ? "EXISTE" : "NO EXISTE")
 
     if (!authHeader) {
-      console.log("❌ MIDDLEWARE - No hay  header de autorización")
-      return res.status(401).json({
-        ok: false,
-        msg: "No token provided",
-      })
+      return next(unauthorized("No token provided"))
     }
 
     const parts = authHeader.split(" ")
     if (parts.length !== 2 || parts[0] !== "Bearer") {
-      console.log("❌ MIDDLEWARE - Formato de token inválido")
-      return res.status(401).json({
-        ok: false,
-        msg: "Invalid token format",
-      })
+      return next(unauthorized("Invalid token format"))
     }
 
     const token = parts[1]
-    console.log("🔍 MIDDLEWARE - Token extraído, longitud:", token.length)
 
     try {
-      console.log("🔍 MIDDLEWARE - Verificando token con JWT...")
       const decoded = jwt.verify(token, JWT_SECRET)
-      console.log("✅ MIDDLEWARE - Token decodificado exitosamente:", {
-        userId: decoded.userId,
-        username: decoded.username,
-        exp: new Date(decoded.exp * 1000).toISOString(),
-      })
 
-      // Verificar que el usuario existe y está activo
-      console.log("🔍 MIDDLEWARE - Buscando usuario en BD...")
+      // Verify user exists and is active
       const user = await UserModel.findOneById(decoded.userId)
 
       if (!user) {
-        console.log("❌ MIDDLEWARE - Usuario no encontrado en BD")
-        return res.status(401).json({
-          ok: false,
-          msg: "User not found",
-        })
+        return next(unauthorized("User not found"))
       }
-
-      console.log("✅ MIDDLEWARE - Usuario encontrado:", {
-        id: user.id,
-        username: user.username,
-        is_active: user.is_active,
-      })
 
       if (!user.is_active) {
-        console.log("❌ MIDDLEWARE - Usuario inactivo")
-        return res.status(403).json({
-          ok: false,
-          msg: "Account is inactive",
-        })
+        return next(forbidden("Account is inactive"))
       }
 
-      // Agregar información del usuario al request
+      // Attach user info to request
       req.user = {
         userId: decoded.userId,
         username: decoded.username,
         personal_id: decoded.personal_id,
+        role: user.rol_nombre // Added for role-based access control
       }
 
-      console.log("✅ MIDDLEWARE - Verificación completada exitosamente")
       next()
     } catch (jwtError) {
-      console.log("❌ MIDDLEWARE - Error JWT:", {
-        name: jwtError.name,
-        message: jwtError.message,
-      })
-
-      if (jwtError.name === "TokenExpiredError") {
-        return res.status(401).json({
-          ok: false,
-          msg: "Token expired",
-        })
-      }
-
-      if (jwtError.name === "JsonWebTokenError") {
-        return res.status(401).json({
-          ok: false,
-          msg: "Invalid token",
-        })
-      }
-
-      return res.status(401).json({
-        ok: false,
-        msg: "Token verification failed",
-        error: jwtError.message,
-      })
+      // errorHandler middleware handles TokenExpiredError and JsonWebTokenError
+      return next(jwtError)
     }
   } catch (error) {
-    console.error("❌ MIDDLEWARE - Error general:", error)
-    return res.status(500).json({
-      ok: false,
-      msg: "Server error in token verification",
-      error: error.message,
-    })
+    next(error)
   }
 }
 
+/**
+ * Middleware to restrict access to ADMIN users only.
+ */
 export const verifyAdmin = async (req, res, next) => {
-  // Roles and permissions removed, allowing all authenticated users
+  if (!req.user || req.user.role !== 'admin') { // Check for lowercase 'admin' or as defined in DB
+    return next(forbidden("Admin privileges required"))
+  }
   next()
 }
 
+/**
+ * Middleware to allow ADMIN or specific read-only access.
+ */
 export const verifyAdminOrReadOnly = async (req, res, next) => {
-  // Roles and permissions removed, allowing all authenticated users
+  // Currently allowing all authenticated users, but structured for future expansion
   next()
 }

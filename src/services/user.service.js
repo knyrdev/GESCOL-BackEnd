@@ -1,9 +1,7 @@
 import bcryptjs from "bcryptjs"
 import jwt from "jsonwebtoken"
 import { UserModel } from "../models/user.model.js"
-
-const JWT_SECRET = process.env.JWT_SECRET || "escuela-jwt-secret-key-2024-development"
-const JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || "escuela-refresh-secret-key-2024-development"
+import { JWT_SECRET, JWT_REFRESH_SECRET, JWT_ACCESS_EXPIRES_IN, JWT_REFRESH_EXPIRES_IN } from "../config/jwt.config.js"
 
 const generateTokens = (user) => {
     const accessToken = jwt.sign(
@@ -13,13 +11,13 @@ const generateTokens = (user) => {
             personal_id: user.personal_id,
         },
         JWT_SECRET,
-        { expiresIn: "24h" }
+        { expiresIn: JWT_ACCESS_EXPIRES_IN }
     )
 
     const refreshToken = jwt.sign(
         { userId: user.id },
         JWT_REFRESH_SECRET,
-        { expiresIn: "7d" }
+        { expiresIn: JWT_REFRESH_EXPIRES_IN }
     )
 
     return { accessToken, refreshToken }
@@ -56,9 +54,12 @@ const register = async (userData) => {
     const existing = await UserModel.findOneByUsername(userData.username)
     if (existing) throw new Error("Username already exists")
 
+    const salt = await bcryptjs.genSalt(10)
+    const hashedPassword = await bcryptjs.hash(userData.password, salt)
+
     return await UserModel.create({
         username: userData.username,
-        password: userData.password,
+        password: hashedPassword,
         securityWord: userData.securityWord,
         securityAnswer: userData.securityAnswer,
         personalId: userData.personalId,

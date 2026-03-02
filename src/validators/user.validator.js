@@ -12,38 +12,32 @@ export const registerSchema = Joi.object({
     .min(3)
     .max(30)
     .required(),
-  email: Joi.string()
-    .email()
-    .required(),
   password: passwordSchema.required(),
-  security_word: Joi.string()
+  securityWord: Joi.string()
     .min(3)
     .max(50)
     .required(),
-  respuesta_de_seguridad: Joi.string()
+  securityAnswer: Joi.string()
     .min(2)
     .max(100)
     .required(),
-  personal_id: Joi.number()
+  personalId: Joi.number()
     .integer()
     .positive()
 });
 
 export const loginSchema = Joi.object({
-  email: Joi.string()
-    .email()
+  username: Joi.string()
     .required(),
   password: Joi.string()
     .required()
 });
 
 export const updateProfileSchema = Joi.object({
-  email: Joi.string()
-    .email(),
-  security_word: Joi.string()
+  securityWord: Joi.string()
     .min(3)
     .max(50),
-  respuesta_de_seguridad: Joi.string()
+  securityAnswer: Joi.string()
     .min(2)
     .max(100)
 });

@@ -25,61 +25,61 @@ INSERT INTO "personal" ("id", "ci", "name", "lastName", "idRole", "telephoneNumb
 (10, 'V88990011', 'Daniel', 'Morales', 2, '0424-8899001', 'daniel.morales@email.com', '1995-03-03', 'Pirineos', 4, NOW(), NOW());
 
 -- Usuarios del Sistema (asociados al personal)
-INSERT INTO "usuario" ("id", "username", "email", "password", "permiso_id", "personal_id", "is_active", "email_verified", "created_at", "updated_at") VALUES
-(11, 'admin2', 'admin2@gmail.com', 'hash_password_seguro', 7, 1, TRUE, TRUE, NOW(), NOW()), -- Administrador -> Configurar Sistema
-(2, 'secretaria', 'ana.gomez@email.com', 'hash_password_seguro', 2, 2, TRUE, TRUE, NOW(), NOW()), -- Secretaría -> Gestionar Estudiantes
-(3, 'lperez', 'lucia.perez@email.com', 'hash_password_seguro', 3, 3, TRUE, TRUE, NOW(), NOW()),      -- Docente -> Gestionar Notas
-(4, 'jhernandez', 'jorge.hernandez@email.com', 'hash_password_seguro', 3, 4, TRUE, TRUE, NOW(), NOW()),-- Docente -> Gestionar Notas
-(5, 'mfernandez', 'maria.fernandez@email.com', 'hash_password_seguro', 3, 5, TRUE, TRUE, NOW(), NOW()),-- Docente -> Gestionar Notas
-(6, 'pramirez', 'pedro.ramirez@email.com', 'hash_password_seguro', 3, 6, TRUE, TRUE, NOW(), NOW()),  -- Docente -> Gestionar Notas
-(7, 'storres', 'sofia.torres@email.com', 'hash_password_seguro', 3, 7, TRUE, TRUE, NOW(), NOW()),   -- Docente -> Gestionar Notas
-(8, 'ldiaz', 'luis.diaz@email.com', 'hash_password_seguro', 3, 8, TRUE, TRUE, NOW(), NOW()),      -- Docente -> Gestionar Notas
-(9, 'erojas', 'elena.rojas@email.com', 'hash_password_seguro', 3, 9, TRUE, TRUE, NOW(), NOW()),    -- Docente -> Gestionar Notas
-(10, 'dmorales', 'daniel.morales@email.com', 'hash_password_seguro', 3, 10, TRUE, TRUE, NOW(), NOW());-- Docente -> Gestionar Notas
+INSERT INTO "usuario" ("id", "username", "password", "security_word", "respuesta_de_seguridad", "is_active", "personal_id", "created_at", "updated_at") VALUES
+(1, 'admin', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 1, NOW(), NOW()), -- Administrador -> Configurar Sistema
+(2, 'secretaria', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 2, NOW(), NOW()), -- Secretaría -> Gestionar Estudiantes
+(3, 'lperez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 3, NOW(), NOW()),      -- Docente -> Gestionar Notas
+(4, 'jhernandez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 4, NOW(), NOW()),-- Docente -> Gestionar Notas
+(5, 'mfernandez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 5, NOW(), NOW()),-- Docente -> Gestionar Notas
+(6, 'pramirez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 6, NOW(), NOW()),  -- Docente -> Gestionar Notas
+(7, 'storres', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 7, NOW(), NOW()),   -- Docente -> Gestionar Notas
+(8, 'ldiaz', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 8, NOW(), NOW()),      -- Docente -> Gestionar Notas
+(9, 'erojas', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 9, NOW(), NOW()),    -- Docente -> Gestionar Notas
+(10, 'dmorales', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 10, NOW(), NOW());-- Docente -> Gestionar Notas
 
 
 -- -----------------------------------------------------------------------------
 -- 2. Rellenar Tabla 'representative'
 --    Crearemos una base amplia de representantes.
 -- -----------------------------------------------------------------------------
-INSERT INTO "representative" ("ci", "name", "lastName", "telephoneNumber", "email", "maritalStat", "profesion", "birthday", "workPlace") VALUES
-('V10101010', 'Roberto', 'Sánchez', '0414-1112233', 'roberto.s@email.com', 'Casado(a)', 'Ingeniero', '1980-01-15', 'Empresa X'),
-('V11112222', 'Laura', 'González', '0416-2223344', 'laura.g@email.com', 'Soltero(a)', 'Abogado(a)', '1982-03-20', 'Bufete Y'),
-('V12121212', 'Miguel', 'Castro', '0424-3334455', 'miguel.c@email.com', 'Divorciado(a)', 'Comerciante', '1978-07-10', 'Negocio Propio'),
-('V13131313', 'Carmen', 'Mendoza', '0412-4445566', 'carmen.m@email.com', 'Viudo(a)', 'Enfermera', '1985-05-25', 'Hospital Central'),
-('V14141414', 'Ricardo', 'Silva', '0414-5556677', 'ricardo.s@email.com', 'Casado(a)', 'Contador', '1983-09-05', 'Oficina Contable'),
-('V15151515', 'Isabel', 'García', '0416-6667788', 'isabel.g@email.com', 'Soltero(a)', 'Diseñadora Gráfica', '1990-11-12', 'Agencia de Publicidad'),
-('V16161616', 'Javier', 'Ortega', '0426-7778899', 'javier.o@email.com', 'Casado(a)', 'Mecánico', '1981-02-28', 'Taller Automotriz'),
-('V17171717', 'Patricia', 'Vargas', '0414-8889900', 'patricia.v@email.com', 'Divorciado(a)', 'Secretaria', '1987-08-18', 'Oficina Z'),
-('V18181818', 'Andrés', 'Jiménez', '0412-9990011', 'andres.j@email.com', 'Soltero(a)', 'Estudiante', '1995-04-30', 'Universidad'),
-('V19191919', 'Verónica', 'Chacón', '0416-0001122', 'veronica.c@email.com', 'Casado(a)', 'Ama de Casa', '1984-06-22', 'Hogar');
+INSERT INTO "representative" ("ci", "name", "lastName", "telephoneNumber", "email", "maritalStat", "profesion", "birthday", "workPlace", "created_at", "updated_at") VALUES
+('V10101010', 'Roberto', 'Sánchez', '0414-1112233', 'roberto.s@email.com', 'Casado(a)', 'Ingeniero', '1980-01-15', 'Empresa X', NOW(), NOW()),
+('V11112222', 'Laura', 'González', '0416-2223344', 'laura.g@email.com', 'Soltero(a)', 'Abogado(a)', '1982-03-20', 'Bufete Y', NOW(), NOW()),
+('V12121212', 'Miguel', 'Castro', '0424-3334455', 'miguel.c@email.com', 'Divorciado(a)', 'Comerciante', '1978-07-10', 'Negocio Propio', NOW(), NOW()),
+('V13131313', 'Carmen', 'Mendoza', '0412-4445566', 'carmen.m@email.com', 'Viudo(a)', 'Enfermera', '1985-05-25', 'Hospital Central', NOW(), NOW()),
+('V14141414', 'Ricardo', 'Silva', '0414-5556677', 'ricardo.s@email.com', 'Casado(a)', 'Contador', '1983-09-05', 'Oficina Contable', NOW(), NOW()),
+('V15151515', 'Isabel', 'García', '0416-6667788', 'isabel.g@email.com', 'Soltero(a)', 'Diseñadora Gráfica', '1990-11-12', 'Agencia de Publicidad', NOW(), NOW()),
+('V16161616', 'Javier', 'Ortega', '0426-7778899', 'javier.o@email.com', 'Casado(a)', 'Mecánico', '1981-02-28', 'Taller Automotriz', NOW(), NOW()),
+('V17171717', 'Patricia', 'Vargas', '0414-8889900', 'patricia.v@email.com', 'Divorciado(a)', 'Secretaria', '1987-08-18', 'Oficina Z', NOW(), NOW()),
+('V18181818', 'Andrés', 'Jiménez', '0412-9990011', 'andres.j@email.com', 'Soltero(a)', 'Estudiante', '1995-04-30', 'Universidad', NOW(), NOW()),
+('V19191919', 'Verónica', 'Chacón', '0416-0001122', 'veronica.c@email.com', 'Casado(a)', 'Ama de Casa', '1984-06-22', 'Hogar', NOW(), NOW());
 
 
 -- -----------------------------------------------------------------------------
 -- 3. Rellenar Tabla 'student'
 --    Estudiantes con diferentes edades, vinculados a representantes y parroquias.
 -- -----------------------------------------------------------------------------
-INSERT INTO "student" ("id", "ci", "name", "lastName", "sex", "birthday", "placeBirth", "parishID", "status_id", "quantityBrothers", "representativeID", "motherName", "motherCi", "livesMother", "fatherName", "fatherCi", "livesFather", "livesBoth", "livesRepresentative", "rolRopresentative") VALUES
+INSERT INTO "student" ("id", "ci", "name", "lastName", "sex", "birthday", "placeBirth", "parishID", "status_id", "quantityBrothers", "representativeID", "motherName", "motherCi", "livesMother", "fatherName", "fatherCi", "livesFather", "livesBoth", "livesRepresentative", "rolRopresentative", "created_at", "updated_at") VALUES
 -- Estudiantes para 1er Nivel (3 años)
-(1, '31111222', 'Ana Sofía', 'Sánchez González', 'Femenino', '2021-05-15', 'Táchira', 7, 1, 0, 'V10101010', 'Laura González', 'V11112222', TRUE, 'Roberto Sánchez', 'V10101010', TRUE, TRUE, FALSE, 'Padre'),
+(1, '31111222', 'Ana Sofía', 'Sánchez González', 'Femenino', '2021-05-15', 'Táchira', 7, 1, 0, 'V10101010', 'Laura González', 'V11112222', TRUE, 'Roberto Sánchez', 'V10101010', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
 -- Estudiantes para 2do Nivel (4 años)
-(2, '30555444', 'Diego', 'Castro Mendoza', 'Masculino', '2020-08-20', 'Táchira', 8, 1, 1, 'V13131313', 'Carmen Mendoza', 'V13131313', TRUE, 'Miguel Castro', 'V12121212', FALSE, FALSE, TRUE, 'Madre'),
+(2, '30555444', 'Diego', 'Castro Mendoza', 'Masculino', '2020-08-20', 'Táchira', 8, 1, 1, 'V13131313', 'Carmen Mendoza', 'V13131313', TRUE, 'Miguel Castro', 'V12121212', FALSE, FALSE, TRUE, 'Madre', NOW(), NOW()),
 -- Estudiantes para 3er Nivel (5 años)
-(3, '29888777', 'Valentina', 'Silva García', 'Femenino', '2019-11-10', 'Mérida', 9, 1, 0, 'V14141414', 'Isabel García', 'V15151515', TRUE, 'Ricardo Silva', 'V14141414', TRUE, TRUE, FALSE, 'Padre'),
+(3, '29888777', 'Valentina', 'Silva García', 'Femenino', '2019-11-10', 'Mérida', 9, 1, 0, 'V14141414', 'Isabel García', 'V15151515', TRUE, 'Ricardo Silva', 'V14141414', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
 -- Estudiantes para 1er Grado (6 años)
-(4, '28111222', 'Mateo', 'Ortega Vargas', 'Masculino', '2018-02-25', 'Táchira', 1, 1, 2, 'V16161616', 'Patricia Vargas', 'V17171717', FALSE, 'Javier Ortega', 'V16161616', TRUE, FALSE, TRUE, 'Padre'),
+(4, '28111222', 'Mateo', 'Ortega Vargas', 'Masculino', '2018-02-25', 'Táchira', 1, 1, 2, 'V16161616', 'Patricia Vargas', 'V17171717', FALSE, 'Javier Ortega', 'V16161616', TRUE, FALSE, TRUE, 'Padre', NOW(), NOW()),
 -- Estudiantes para 2do Grado (7 años)
-(5, '27555444', 'Camila', 'Jiménez Chacón', 'Femenino', '2017-07-30', 'Zulia', 2, 1, 1, 'V19191919', 'Verónica Chacón', 'V19191919', TRUE, 'Andrés Jiménez', 'V18181818', TRUE, TRUE, FALSE, 'Madre'),
+(5, '27555444', 'Camila', 'Jiménez Chacón', 'Femenino', '2017-07-30', 'Zulia', 2, 1, 1, 'V19191919', 'Verónica Chacón', 'V19191919', TRUE, 'Andrés Jiménez', 'V18181818', TRUE, TRUE, FALSE, 'Madre', NOW(), NOW()),
 -- Estudiantes para 3er Grado (8 años)
-(6, '26888777', 'Santiago', 'Sánchez González', 'Masculino', '2016-09-05', 'Táchira', 7, 1, 1, 'V10101010', 'Laura González', 'V11112222', TRUE, 'Roberto Sánchez', 'V10101010', TRUE, TRUE, FALSE, 'Padre'),
+(6, '26888777', 'Santiago', 'Sánchez González', 'Masculino', '2016-09-05', 'Táchira', 7, 1, 1, 'V10101010', 'Laura González', 'V11112222', TRUE, 'Roberto Sánchez', 'V10101010', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
 -- Estudiantes para 4to Grado (9 años)
-(7, '25111222', 'Isabella', 'Castro Mendoza', 'Femenino', '2015-04-12', 'Táchira', 8, 1, 1, 'V12121212', 'Carmen Mendoza', 'V13131313', TRUE, 'Miguel Castro', 'V12121212', FALSE, FALSE, TRUE, 'Abuela'),
+(7, '25111222', 'Isabella', 'Castro Mendoza', 'Femenino', '2015-04-12', 'Táchira', 8, 1, 1, 'V12121212', 'Carmen Mendoza', 'V13131313', TRUE, 'Miguel Castro', 'V12121212', FALSE, FALSE, TRUE, 'Abuela', NOW(), NOW()),
 -- Estudiantes para 5to Grado (10 años)
-(8, '24555444', 'Sebastián', 'Silva García', 'Masculino', '2014-10-18', 'Mérida', 9, 1, 0, 'V14141414', 'Isabel García', 'V15151515', TRUE, 'Ricardo Silva', 'V14141414', TRUE, TRUE, FALSE, 'Padre'),
+(8, '24555444', 'Sebastián', 'Silva García', 'Masculino', '2014-10-18', 'Mérida', 9, 1, 0, 'V14141414', 'Isabel García', 'V15151515', TRUE, 'Ricardo Silva', 'V14141414', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
 -- Estudiante Retirado
-(9, '23888777', 'Lucas', 'Ortega Vargas', 'Masculino', '2013-01-20', 'Táchira', 1, 6, 2, 'V16161616', 'Patricia Vargas', 'V17171717', FALSE, 'Javier Ortega', 'V16161616', TRUE, FALSE, TRUE, 'Padre'),
+(9, '23888777', 'Lucas', 'Ortega Vargas', 'Masculino', '2013-01-20', 'Táchira', 1, 6, 2, 'V16161616', 'Patricia Vargas', 'V17171717', FALSE, 'Javier Ortega', 'V16161616', TRUE, FALSE, TRUE, 'Padre', NOW(), NOW()),
 -- Estudiante Nuevo Ingreso para el año actual
-(10, '29999888', 'Valeria', 'Núñez', 'Femenino', '2018-03-03', 'Barinas', 3, 2, 0, 'V18181818', 'Ana Núñez', 'V20202020', TRUE, 'Pedro Núñez', 'V21212121', TRUE, TRUE, FALSE, 'Tío');
+(10, '29999888', 'Valeria', 'Núñez', 'Femenino', '2018-03-03', 'Barinas', 3, 2, 0, 'V18181818', 'Ana Núñez', 'V20202020', TRUE, 'Pedro Núñez', 'V21212121', TRUE, TRUE, FALSE, 'Tío', NOW(), NOW());
 
 
 -- -----------------------------------------------------------------------------

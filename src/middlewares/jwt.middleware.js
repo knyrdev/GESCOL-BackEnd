@@ -13,7 +13,7 @@ export const verifyToken = async (req, res, next) => {
     console.log("🔍 MIDDLEWARE - Authorization header:", authHeader ? "EXISTE" : "NO EXISTE")
 
     if (!authHeader) {
-      console.log("❌ MIDDLEWARE - No hay header de autorización")
+      console.log("❌ MIDDLEWARE - No hay  header de autorización")
       return res.status(401).json({
         ok: false,
         msg: "No token provided",
@@ -71,7 +71,6 @@ export const verifyToken = async (req, res, next) => {
       req.user = {
         userId: decoded.userId,
         username: decoded.username,
-        permiso_id: decoded.permiso_id,
         personal_id: decoded.personal_id,
       }
 
@@ -114,62 +113,11 @@ export const verifyToken = async (req, res, next) => {
 }
 
 export const verifyAdmin = async (req, res, next) => {
-  try {
-    const user = await UserModel.findOneById(req.user.userId)
-
-    if (!user) {
-      return res.status(404).json({
-        ok: false,
-        msg: "User not found",
-      })
-    }
-
-    // Verificar si tiene permisos de administrador (permiso_id = 1 es "Acceso Total")
-    if (user.permiso_id !== "1") {
-      return res.status(403).json({
-        ok: false,
-        msg: "Admin access required",
-      })
-    }
-
-    next()
-  } catch (error) {
-    console.error("Error in verifyAdmin:", error)
-    return res.status(500).json({
-      ok: false,
-      msg: "Server error",
-    })
-  }
+  // Roles and permissions removed, allowing all authenticated users
+  next()
 }
 
 export const verifyAdminOrReadOnly = async (req, res, next) => {
-  try {
-    const user = await UserModel.findOneById(req.user.userId)
-
-    if (!user) {
-      return res.status(404).json({
-        ok: false,
-        msg: "User not found",
-      })
-    }
-
-    // Permitir acceso a administradores (permiso_id = 1) y usuarios con permisos de consulta (permiso_id = 4)
-    // También permitir gestión académica (permiso_id = 2) y gestión personal (permiso_id = 3)
-    const allowedPermissions = ["1", "2", "3", "4"]
-
-    if (!allowedPermissions.includes(user.permiso_id)) {
-      return res.status(403).json({
-        ok: false,
-        msg: "Insufficient permissions",
-      })
-    }
-
-    next()
-  } catch (error) {
-    console.error("Error in verifyAdminOrReadOnly:", error)
-    return res.status(500).json({
-      ok: false,
-      msg: "Server error",
-    })
-  }
+  // Roles and permissions removed, allowing all authenticated users
+  next()
 }

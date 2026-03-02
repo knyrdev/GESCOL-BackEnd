@@ -1,0 +1,71 @@
+Date : 2026-02-12 14:19:07
+Directory : \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src
+Total : 38 files,  7684 codes, 508 comments, 1056 blanks, all 9248 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         35 |      7,218 |        368 |        973 |      8,559 |
+| MS SQL     |          3 |        466 |        140 |         83 |        689 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                  | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                     |         38 |      7,684 |        508 |      1,056 |      9,248 |
+| controllers                                                                                           |          8 |      3,220 |        124 |        503 |      3,847 |
+| db                                                                                                    |          4 |        500 |        144 |         93 |        737 |
+| middlewares                                                                                           |          2 |        168 |          7 |         29 |        204 |
+| models                                                                                                |          7 |      2,767 |        101 |        194 |      3,062 |
+| routes                                                                                                |          8 |        211 |         72 |         92 |        375 |
+| services                                                                                              |          4 |        458 |         38 |         93 |        589 |
+| utils                                                                                                 |          1 |         42 |         10 |          7 |         59 |
+| validators                                                                                            |          4 |        318 |         12 |         45 |        375 |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                              | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\brigada.controller.js        | JavaScript |        485 |          8 |        101 |        594 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\dashboard.controller.js      | JavaScript |        253 |          2 |         29 |        284 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\matricula.controller.js      | JavaScript |        267 |         21 |         35 |        323 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\pdf.controller.js            | JavaScript |        948 |         49 |        163 |      1,160 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\personal.controller.js       | JavaScript |        212 |          3 |         20 |        235 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\representative.controller.js | JavaScript |         92 |          4 |         14 |        110 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\student.controller.js        | JavaScript |        192 |         15 |         28 |        235 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\user.controller.js           | JavaScript |        771 |         22 |        113 |        906 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\connection.database.js                | JavaScript |         34 |          4 |         10 |         48 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\scrip_test.sql                        | MS SQL     |        111 |         74 |         27 |        212 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\script_escuela.sql                    | MS SQL     |        261 |         23 |         37 |        321 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\script_usability.sql                  | MS SQL     |         94 |         43 |         19 |        156 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\middlewares\jwt.middleware.js            | JavaScript |        144 |          6 |         26 |        176 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\middlewares\validation.middleware.js     | JavaScript |         24 |          1 |          3 |         28 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\brigada.model.js                  | JavaScript |        367 |         24 |         23 |        414 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\dashboard.model.js                | JavaScript |        340 |         16 |         31 |        387 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\matricula.model.js                | JavaScript |        604 |         33 |         54 |        691 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\personal.model.js                 | JavaScript |        499 |          3 |         24 |        526 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\representative.model.js           | JavaScript |        142 |          5 |         12 |        159 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\student.model.js                  | JavaScript |        333 |         14 |         22 |        369 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\user.model.js                     | JavaScript |        482 |          6 |         28 |        516 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\brigada.route.js                  | JavaScript |         28 |          7 |         10 |         45 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\dashboard.route.js                | JavaScript |         23 |          5 |          8 |         36 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\matricula.route.js                | JavaScript |         24 |         22 |         21 |         67 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\pdf.route.js                      | JavaScript |         15 |         12 |         13 |         40 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\personal.route.js                 | JavaScript |         68 |          7 |         16 |         91 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\representative.route.js           | JavaScript |         11 |          5 |          4 |         20 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\student.route.js                  | JavaScript |         19 |         10 |         13 |         42 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\user.route.js                     | JavaScript |         23 |          4 |          7 |         34 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\brigada.service.js              | JavaScript |        115 |          8 |         28 |        151 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\dashboard.service.js            | JavaScript |        138 |          8 |         21 |        167 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\matricula.service.js            | JavaScript |        130 |          3 |         23 |        156 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\personal.service.js             | JavaScript |         75 |         19 |         21 |        115 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\utils\pdfGenerator.js                    | JavaScript |         42 |         10 |          7 |         59 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\brigada.validator.js          | JavaScript |         79 |          0 |         17 |         96 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\matricula.validator.js        | JavaScript |         92 |          5 |         16 |        113 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\personal.validator.js         | JavaScript |         98 |          6 |          7 |        111 |
+| \\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\user.validator.js             | JavaScript |         49 |          1 |          5 |         55 |
+| Total                                                                                                 |            |      7,684 |        508 |      1,056 |      9,248 |
++-------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

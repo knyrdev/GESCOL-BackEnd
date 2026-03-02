@@ -91,19 +91,6 @@ INSERT INTO "rol" ("name", "description", "created_at", "updated_at") VALUES
 ('Mantenimiento', 'Gestión de recursos y mantenimiento de instalaciones.', NOW(), NOW());
 
 -- -----------------------------------------------------------------------------
--- 6. Rellenar Tabla 'permisos'
--- -----------------------------------------------------------------------------
-INSERT INTO "permisos" ("nombre", "descripcion", "created_at", "updated_at") VALUES
-('Gestionar Usuarios', 'Permite crear, editar y eliminar usuarios del sistema.', NOW(), NOW()),
-('Gestionar Estudiantes', 'Permite registrar, actualizar y consultar información de estudiantes.', NOW(), NOW()),
-('Gestionar Notas', 'Permite ingresar y modificar calificaciones de estudiantes.', NOW(), NOW()),
-('Gestionar Secciones', 'Permite crear y asignar secciones y docentes.', NOW(), NOW()),
-('Gestionar Asistencia', 'Permite registrar y consultar la asistencia de los estudiantes.', NOW(), NOW()),
-('Ver Reportes', 'Acceso a la generación de diversos reportes del sistema.', NOW(), NOW()),
-('Configurar Sistema', 'Permite modificar la configuración general del sistema (roles, periodos, etc.).', NOW(), NOW());
-
-
--- -----------------------------------------------------------------------------
 -- 7. Rellenar Tabla 'status_student'
 -- -----------------------------------------------------------------------------
 INSERT INTO "status_student" ("descripcion", "created_at", "updated_at") VALUES

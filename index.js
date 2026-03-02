@@ -27,7 +27,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // Rutas
-app.use("/api/users", userRoutes)
+app.use("/api/user", userRoutes)
 app.use("/api/personal", personalRoutes)
 app.use("/api/pdf", pdfRoutes)
 app.use("/api/matriculas", matriculaRoutes)
@@ -59,7 +59,7 @@ app.get("/test-db-connection", async (req, res) => {
 const PORT = process.env.PORT || 3001
 const host = process.env.HOST || '0.0.0.0'
 export function startServer(port = PORT) {
-  return app.listen(port, host,() =>
+  return app.listen(port, host, () =>
     console.log(`Servidor corriendo en el puerto ${port}`)
   )
 }

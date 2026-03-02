@@ -1,0 +1,40 @@
+"filename", "language", "JavaScript", "MS SQL", "comment", "blank", "total"
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\brigada.controller.js", "JavaScript", 485, 0, 8, 101, 594
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\dashboard.controller.js", "JavaScript", 253, 0, 2, 29, 284
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\matricula.controller.js", "JavaScript", 267, 0, 21, 35, 323
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\pdf.controller.js", "JavaScript", 948, 0, 49, 163, 1160
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\personal.controller.js", "JavaScript", 212, 0, 3, 20, 235
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\representative.controller.js", "JavaScript", 92, 0, 4, 14, 110
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\student.controller.js", "JavaScript", 192, 0, 15, 28, 235
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\controllers\user.controller.js", "JavaScript", 771, 0, 22, 113, 906
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\connection.database.js", "JavaScript", 34, 0, 4, 10, 48
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\scrip_test.sql", "MS SQL", 0, 111, 74, 27, 212
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\script_escuela.sql", "MS SQL", 0, 261, 23, 37, 321
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\db\script_usability.sql", "MS SQL", 0, 94, 43, 19, 156
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\middlewares\jwt.middleware.js", "JavaScript", 144, 0, 6, 26, 176
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\middlewares\validation.middleware.js", "JavaScript", 24, 0, 1, 3, 28
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\brigada.model.js", "JavaScript", 367, 0, 24, 23, 414
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\dashboard.model.js", "JavaScript", 340, 0, 16, 31, 387
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\matricula.model.js", "JavaScript", 604, 0, 33, 54, 691
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\personal.model.js", "JavaScript", 499, 0, 3, 24, 526
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\representative.model.js", "JavaScript", 142, 0, 5, 12, 159
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\student.model.js", "JavaScript", 333, 0, 14, 22, 369
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\models\user.model.js", "JavaScript", 482, 0, 6, 28, 516
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\brigada.route.js", "JavaScript", 28, 0, 7, 10, 45
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\dashboard.route.js", "JavaScript", 23, 0, 5, 8, 36
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\matricula.route.js", "JavaScript", 24, 0, 22, 21, 67
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\pdf.route.js", "JavaScript", 15, 0, 12, 13, 40
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\personal.route.js", "JavaScript", 68, 0, 7, 16, 91
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\representative.route.js", "JavaScript", 11, 0, 5, 4, 20
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\student.route.js", "JavaScript", 19, 0, 10, 13, 42
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\routes\user.route.js", "JavaScript", 23, 0, 4, 7, 34
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\brigada.service.js", "JavaScript", 115, 0, 8, 28, 151
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\dashboard.service.js", "JavaScript", 138, 0, 8, 21, 167
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\matricula.service.js", "JavaScript", 130, 0, 3, 23, 156
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\services\personal.service.js", "JavaScript", 75, 0, 19, 21, 115
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\utils\pdfGenerator.js", "JavaScript", 42, 0, 10, 7, 59
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\brigada.validator.js", "JavaScript", 79, 0, 0, 17, 96
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\matricula.validator.js", "JavaScript", 92, 0, 5, 16, 113
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\personal.validator.js", "JavaScript", 98, 0, 6, 7, 111
+"\\wsl.localhost\Ubuntu\home\knyr\Projects\GESCOL-BackEnd\src\validators\user.validator.js", "JavaScript", 49, 0, 1, 5, 55
+"Total", "-", 7218, 466, 508, 1056, 9248

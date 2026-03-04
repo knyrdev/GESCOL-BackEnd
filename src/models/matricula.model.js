@@ -157,21 +157,33 @@ const createSchoolInscription = async (inscriptionData) => {
       autorizedCopyIDCheck,
     } = inscriptionData
 
+    // Obtener el academicPeriodID de la sección
+    const sectionQuery = {
+      text: 'SELECT "academicPeriodID" FROM "section" WHERE id = $1',
+      values: [sectionID],
+    }
+    const { rows: sectionRows } = await db.query(sectionQuery)
+    if (sectionRows.length === 0) {
+      throw new Error(`Sección con ID ${sectionID} no encontrada.`)
+    }
+    const academicPeriodID = sectionRows[0].academicPeriodID
+
     const query = {
       text: `
         INSERT INTO "enrollment" (
-          "studentID", "sectionID", "brigadeTeacherDateID", "registrationDate",
+          "studentID", "sectionID", "academicPeriodID", "brigadeTeacherDateID", "registrationDate",
           repeater, "chemiseSize", "pantsSize", "shoesSize", weight, stature,
           diseases, observation, "birthCertificateCheck", "vaccinationCardCheck",
           "studentPhotosCheck", "representativePhotosCheck", "representativeCopyIDCheck",
           "representativeRIFCheck", "autorizedCopyIDCheck", created_at, updated_at
         )
-        VALUES ($1, $2, $3, CURRENT_DATE, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+        VALUES ($1, $2, $3, $4, CURRENT_DATE, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
         RETURNING *
       `,
       values: [
         studentID,
         sectionID,
+        academicPeriodID,
         brigadeTeacherDateID || null,
         repeater || false,
         chemiseSize,
@@ -349,52 +361,55 @@ const getInscriptionsByGradeAndPeriod = async (gradeId, periodId) => {
   }
 }
 
-// Obtener todas las inscripciones (puedes filtrar por periodo si lo necesitas)
+// Obtener inscripciones por grado (usa el periodo actual si no se especifica)
+const getInscriptionsByGrade = async (gradeId, periodId = null) => {
+  try {
+    let activePeriodId = periodId
+    if (!activePeriodId) {
+      const currentPeriod = await getCurrentAcademicPeriod()
+      activePeriodId = currentPeriod ? currentPeriod.id : null
+    }
+
+    if (!activePeriodId) {
+      return []
+    }
+
+    return await getInscriptionsByGradeAndPeriod(gradeId, activePeriodId)
+  } catch (error) {
+    console.error("Error in getInscriptionsByGrade:", error)
+    throw error
+  }
+}
+
+// Obtener todas las inscripciones (filtra por periodo actual por defecto)
 const getAllInscriptions = async (periodId = null) => {
   try {
-    let query
-    if (periodId) {
-      query = {
-        text: `
-          SELECT 
-            e.*,
-            s.name as student_name,
-            s."lastName" as "student_lastName",
-            s.ci as student_ci,
-            g.name as grade_name,
-            sec.seccion as section_name,
-            p.name as teacher_name,
-            p."lastName" as "teacher_lastName"
-          FROM "enrollment" e
-          JOIN "student" s ON e."studentID" = s.id
-          JOIN "section" sec ON e."sectionID" = sec.id
-          JOIN "grade" g ON sec."gradeID" = g.id
-          LEFT JOIN "personal" p ON sec."teacherCI" = p.id
-          WHERE sec."academicPeriodID" = $1
-          ORDER BY e."registrationDate" DESC
-        `,
-        values: [periodId],
-      }
-    } else {
-      query = {
-        text: `
-          SELECT 
-            e.*,
-            s.name as student_name,
-            s."lastName" as "student_lastName",
-            s.ci as student_ci,
-            g.name as grade_name,
-            sec.seccion as section_name,
-            p.name as teacher_name,
-            p."lastName" as "teacher_lastName"
-          FROM "enrollment" e
-          JOIN "student" s ON e."studentID" = s.id
-          JOIN "section" sec ON e."sectionID" = sec.id
-          JOIN "grade" g ON sec."gradeID" = g.id
-          LEFT JOIN "personal" p ON sec."teacherCI" = p.id
-          ORDER BY e."registrationDate" DESC
-        `,
-      }
+    let activePeriodId = periodId
+    if (!activePeriodId) {
+      const currentPeriod = await getCurrentAcademicPeriod()
+      activePeriodId = currentPeriod ? currentPeriod.id : null
+    }
+
+    const query = {
+      text: `
+        SELECT 
+          e.*,
+          s.name as student_name,
+          s."lastName" as "student_lastName",
+          s.ci as student_ci,
+          g.name as grade_name,
+          sec.seccion as section_name,
+          p.name as teacher_name,
+          p."lastName" as "teacher_lastName"
+        FROM "enrollment" e
+        JOIN "student" s ON e."studentID" = s.id
+        JOIN "section" sec ON e."sectionID" = sec.id
+        JOIN "grade" g ON sec."gradeID" = g.id
+        LEFT JOIN "personal" p ON sec."teacherCI" = p.id
+        ${activePeriodId ? 'WHERE sec."academicPeriodID" = $1' : ""}
+        ORDER BY e."registrationDate" DESC
+      `,
+      values: activePeriodId ? [activePeriodId] : [],
     }
     const { rows } = await db.query(query)
     return rows
@@ -678,6 +693,7 @@ export const MatriculaModel = {
   getSectionsByGradeAndPeriod,
   getAvailableTeachers,
   getInscriptionsByGradeAndPeriod,
+  getInscriptionsByGrade,
   getAllInscriptions,
   getInscriptionById,
   update,

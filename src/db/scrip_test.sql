@@ -1,212 +1,235 @@
 -- #############################################################################
--- ## INSERCIÓN DE DATOS DE PRUEBA MASIVOS PARA SISTEMA ESCOLAR
+-- ## INSERCIÓN DE DATOS MASIVOS PARA PRUEBAS DE ESTRÉS Y FUNCIONALIDAD
 -- #############################################################################
 
--- Usamos IDs explícitos para facilitar las referencias entre tablas.
--- NOTA: Estos inserts asumen que las tablas están vacías y que los IDs generados por defecto comienzan en 1.
---       Los datos de usabilidad (países, estados, etc.) ya deben estar cargados.
+-- Limpieza preventiva para evitar conflictos si se desea re-ejecutar (opcional)
+-- DELETE FROM "notes"; DELETE FROM "attendanceDetails"; DELETE FROM "attendance"; 
+-- DELETE FROM "studentBrigade"; DELETE FROM "brigadeTeacherDate"; DELETE FROM "enrollment";
+-- DELETE FROM "section"; DELETE FROM "student_academic_history"; DELETE FROM "student";
+-- DELETE FROM "representative"; DELETE FROM "usuario"; DELETE FROM "personal";
 
 -- -----------------------------------------------------------------------------
--- 1. Rellenar Tabla 'personal' y 'usuario'
---    Crearemos personal con roles de Administrador, Docente y Secretaría.
+-- 1. PERSONAL (30 personas: Directivos, Secretarios, Docentes y Obreros)
 -- -----------------------------------------------------------------------------
-
--- Personal (Directores, Secretarios, Docentes)
 INSERT INTO "personal" ("id", "ci", "name", "lastName", "idRole", "telephoneNumber", "email", "birthday", "direction", "parish", "created_at", "updated_at") VALUES
-(1, 'V12345678', 'Carlos', 'Martínez', 1, '0414-1234567', 'carlos.martinez@email.com', '1980-05-10', 'Barrio Obrero', 1, NOW(), NOW()),
-(2, 'V87654321', 'Ana', 'Gómez', 3, '0416-8765432', 'ana.gomez@email.com', '1985-11-20', 'Centro', 2, NOW(), NOW()),
-(3, 'V11223344', 'Lucía', 'Pérez', 2, '0424-1122334', 'lucia.perez@email.com', '1990-02-15', 'Av. España', 3, NOW(), NOW()),
-(4, 'V22334455', 'Jorge', 'Hernández', 2, '0412-2233445', 'jorge.hernandez@email.com', '1992-08-30', 'La Concordia', 3, NOW(), NOW()),
-(5, 'V33445566', 'María', 'Fernández', 2, '0414-3344556', 'maria.fernandez@email.com', '1988-07-25', 'Táriba', 7, NOW(), NOW()),
-(6, 'V44556677', 'Pedro', 'Ramírez', 2, '0416-4455667', 'pedro.ramirez@email.com', '1991-01-12', 'Palmira', 9, NOW(), NOW()),
-(7, 'V55667788', 'Sofía', 'Torres', 2, '0426-5566778', 'sofia.torres@email.com', '1993-04-18', 'San Josecito', 8, NOW(), NOW()),
-(8, 'V66778899', 'Luis', 'Díaz', 2, '0414-6677889', 'luis.diaz@email.com', '1989-12-05', 'Pueblo Nuevo', 1, NOW(), NOW()),
-(9, 'V77889900', 'Elena', 'Rojas', 2, '0412-7788990', 'elena.rojas@email.com', '1994-09-22', 'Las Acacias', 2, NOW(), NOW()),
-(10, 'V88990011', 'Daniel', 'Morales', 2, '0424-8899001', 'daniel.morales@email.com', '1995-03-03', 'Pirineos', 4, NOW(), NOW());
+(2,  'V10000002', 'Beatriz', 'Brito', 3, '0414-0000002', 'beatriz@escuela.com', '1980-02-02', 'Centro', 1, NOW(), NOW()),
+(3,  'V10000003', 'Carlos', 'Carrillo', 2, '0414-0000003', 'carlos@escuela.com', '1985-03-03', 'Barrio Obrero', 2, NOW(), NOW()),
+(4,  'V10000004', 'Dora', 'Duarte', 2, '0414-0000004', 'dora@escuela.com', '1988-04-04', 'Barrio Obrero', 2, NOW(), NOW()),
+(5,  'V10000005', 'Edgar', 'Escobar', 2, '0414-0000005', 'edgar@escuela.com', '1990-05-05', 'La Concordia', 3, NOW(), NOW()),
+(6,  'V10000006', 'Fabiola', 'Fuentes', 2, '0414-0000006', 'fabiola@escuela.com', '1992-06-06', 'La Concordia', 3, NOW(), NOW()),
+(7,  'V10000007', 'Gilberto', 'Gómez', 2, '0414-0000007', 'gilberto@escuela.com', '1987-07-07', 'Táriba', 6, NOW(), NOW()),
+(8,  'V10000008', 'Hilda', 'Hurtado', 2, '0414-0000008', 'hilda@escuela.com', '1989-08-08', 'Táriba', 6, NOW(), NOW()),
+(9,  'V10000009', 'Iván', 'Ilarraza', 2, '0414-0000009', 'ivan@escuela.com', '1991-09-09', 'Palmira', 7, NOW(), NOW()),
+(10, 'V10000010', 'Juana', 'Jiménez', 2, '0414-0000010', 'juana@escuela.com', '1993-10-10', 'Palmira', 7, NOW(), NOW()),
+(11, 'V10000011', 'Kevin', 'Key', 2, '0414-0000011', 'kevin@escuela.com', '1986-11-11', 'San Josecito', 8, NOW(), NOW()),
+(12, 'V10000012', 'Laura', 'López', 2, '0414-0000012', 'laura@escuela.com', '1984-12-12', 'San Josecito', 8, NOW(), NOW()),
+(13, 'V10000013', 'Mario', 'Méndez', 2, '0414-0000013', 'mario@escuela.com', '1982-01-13', 'Pirineos', 4, NOW(), NOW()),
+(14, 'V10000014', 'Nora', 'Navas', 2, '0414-0000014', 'nora@escuela.com', '1981-02-14', 'Pirineos', 4, NOW(), NOW()),
+(15, 'V10000015', 'Oscar', 'Ortiz', 2, '0414-0000015', 'oscar@escuela.com', '1990-03-15', 'Genovés', 5, NOW(), NOW()),
+(16, 'V10000016', 'Paula', 'Pérez', 4, '0414-0000016', 'paula@escuela.com', '1978-04-16', 'Genovés', 5, NOW(), NOW()),
+(17, 'V10000017', 'Quique', 'Quintana', 4, '0414-0000017', 'quique@escuela.com', '1975-05-17', 'Unidad Vecinal', 1, NOW(), NOW()),
+(18, 'V10000018', 'Rosa', 'Rojas', 2, '0414-0000018', 'rosa@escuela.com', '1988-06-18', 'Pueblo Nuevo', 1, NOW(), NOW()),
+(19, 'V10000019', 'Saúl', 'Sosa', 2, '0414-0000019', 'saul@escuela.com', '1992-07-19', 'Pueblo Nuevo', 1, NOW(), NOW()),
+(20, 'V10000020', 'Teresa', 'Torres', 2, '0414-0000020', 'teresa@escuela.com', '1991-08-20', 'Paramillo', 2, NOW(), NOW()),
+(21, 'V10000021', 'Ugo', 'Urbina', 2, '0414-0000021', 'ugo@escuela.com', '1985-09-21', 'Paramillo', 2, NOW(), NOW()),
+(22, 'V10000022', 'Vicky', 'Vera', 2, '0414-0000022', 'vicky@escuela.com', '1987-10-22', 'Las Acacias', 2, NOW(), NOW()),
+(23, 'V10000023', 'Walter', 'White', 2, '0414-0000023', 'walter@escuela.com', '1989-11-23', 'Las Acacias', 2, NOW(), NOW()),
+(24, 'V10000024', 'Xenia', 'Xing', 2, '0414-0000024', 'xenia@escuela.com', '1990-12-24', 'Lomas de Tejar', 3, NOW(), NOW()),
+(25, 'V10000025', 'Yolanda', 'Yépez', 2, '0414-0000025', 'yolanda@escuela.com', '1983-01-25', 'Lomas de Tejar', 3, NOW(), NOW()),
+(26, 'V10000026', 'Zila', 'Zamora', 2, '0414-0000026', 'zila@escuela.com', '1984-02-26', 'Barrancas', 6, NOW(), NOW()),
+(27, 'V10000027', 'Armando', 'Arvelo', 2, '0414-0000027', 'armando@escuela.com', '1986-03-27', 'Barrancas', 6, NOW(), NOW()),
+(28, 'V10000028', 'Bianca', 'Barrientos', 3, '0414-0000028', 'bianca@escuela.com', '1981-04-28', 'Guásimos', 7, NOW(), NOW()),
+(29, 'V10000029', 'César', 'Colmenares', 1, '0414-0000029', 'cesar@escuela.com', '1979-05-29', 'Guásimos', 7, NOW(), NOW()),
+(30, 'V10000030', 'Diana', 'Delgado', 2, '0414-0000030', 'diana@escuela.com', '1992-06-30', 'Genovés', 5, NOW(), NOW());
 
--- Usuarios del Sistema (asociados al personal)
+-- -----------------------------------------------------------------------------
+-- 2. USUARIOS (Credenciales para Admin, Secretaría y algunos Docentes)
+-- -----------------------------------------------------------------------------
 INSERT INTO "usuario" ("id", "username", "password", "security_word", "respuesta_de_seguridad", "is_active", "personal_id", "created_at", "updated_at") VALUES
-(1, 'admin', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 1, NOW(), NOW()), -- Administrador -> Configurar Sistema
-(2, 'secretaria', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 2, NOW(), NOW()), -- Secretaría -> Gestionar Estudiantes
-(3, 'lperez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 3, NOW(), NOW()),      -- Docente -> Gestionar Notas
-(4, 'jhernandez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 4, NOW(), NOW()),-- Docente -> Gestionar Notas
-(5, 'mfernandez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 5, NOW(), NOW()),-- Docente -> Gestionar Notas
-(6, 'pramirez', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 6, NOW(), NOW()),  -- Docente -> Gestionar Notas
-(7, 'storres', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 7, NOW(), NOW()),   -- Docente -> Gestionar Notas
-(8, 'ldiaz', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 8, NOW(), NOW()),      -- Docente -> Gestionar Notas
-(9, 'erojas', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 9, NOW(), NOW()),    -- Docente -> Gestionar Notas
-(10, 'dmorales', 'hash_password_seguro', 'seguridad', 'respuesta', TRUE, 10, NOW(), NOW());-- Docente -> Gestionar Notas
-
+(2, 'secretaria', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 2, NOW(), NOW()),
+(3, 'docente1', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 3, NOW(), NOW()),
+(4, 'docente2', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 4, NOW(), NOW()),
+(5, 'docente3', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 5, NOW(), NOW()),
+(6, 'secretaria2', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 28, NOW(), NOW()),
+(7, 'director', '$2a$10$ueNV2Oz0D.0ricexM0luveIHmTy3/aFdfz70qvjO5V55PKzSVah36', 'seguridad', 'respuesta', TRUE, 29, NOW(), NOW());
 
 -- -----------------------------------------------------------------------------
--- 2. Rellenar Tabla 'representative'
---    Crearemos una base amplia de representantes.
+-- 3. REPRESENTANTES (60 personas)
 -- -----------------------------------------------------------------------------
-INSERT INTO "representative" ("ci", "name", "lastName", "telephoneNumber", "email", "maritalStat", "profesion", "birthday", "workPlace", "created_at", "updated_at") VALUES
-('V10101010', 'Roberto', 'Sánchez', '0414-1112233', 'roberto.s@email.com', 'Casado(a)', 'Ingeniero', '1980-01-15', 'Empresa X', NOW(), NOW()),
-('V11112222', 'Laura', 'González', '0416-2223344', 'laura.g@email.com', 'Soltero(a)', 'Abogado(a)', '1982-03-20', 'Bufete Y', NOW(), NOW()),
-('V12121212', 'Miguel', 'Castro', '0424-3334455', 'miguel.c@email.com', 'Divorciado(a)', 'Comerciante', '1978-07-10', 'Negocio Propio', NOW(), NOW()),
-('V13131313', 'Carmen', 'Mendoza', '0412-4445566', 'carmen.m@email.com', 'Viudo(a)', 'Enfermera', '1985-05-25', 'Hospital Central', NOW(), NOW()),
-('V14141414', 'Ricardo', 'Silva', '0414-5556677', 'ricardo.s@email.com', 'Casado(a)', 'Contador', '1983-09-05', 'Oficina Contable', NOW(), NOW()),
-('V15151515', 'Isabel', 'García', '0416-6667788', 'isabel.g@email.com', 'Soltero(a)', 'Diseñadora Gráfica', '1990-11-12', 'Agencia de Publicidad', NOW(), NOW()),
-('V16161616', 'Javier', 'Ortega', '0426-7778899', 'javier.o@email.com', 'Casado(a)', 'Mecánico', '1981-02-28', 'Taller Automotriz', NOW(), NOW()),
-('V17171717', 'Patricia', 'Vargas', '0414-8889900', 'patricia.v@email.com', 'Divorciado(a)', 'Secretaria', '1987-08-18', 'Oficina Z', NOW(), NOW()),
-('V18181818', 'Andrés', 'Jiménez', '0412-9990011', 'andres.j@email.com', 'Soltero(a)', 'Estudiante', '1995-04-30', 'Universidad', NOW(), NOW()),
-('V19191919', 'Verónica', 'Chacón', '0416-0001122', 'veronica.c@email.com', 'Casado(a)', 'Ama de Casa', '1984-06-22', 'Hogar', NOW(), NOW());
-
-
--- -----------------------------------------------------------------------------
--- 3. Rellenar Tabla 'student'
---    Estudiantes con diferentes edades, vinculados a representantes y parroquias.
--- -----------------------------------------------------------------------------
-INSERT INTO "student" ("id", "ci", "name", "lastName", "sex", "birthday", "placeBirth", "parishID", "status_id", "quantityBrothers", "representativeID", "motherName", "motherCi", "livesMother", "fatherName", "fatherCi", "livesFather", "livesBoth", "livesRepresentative", "rolRopresentative", "created_at", "updated_at") VALUES
--- Estudiantes para 1er Nivel (3 años)
-(1, '31111222', 'Ana Sofía', 'Sánchez González', 'Femenino', '2021-05-15', 'Táchira', 7, 1, 0, 'V10101010', 'Laura González', 'V11112222', TRUE, 'Roberto Sánchez', 'V10101010', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
--- Estudiantes para 2do Nivel (4 años)
-(2, '30555444', 'Diego', 'Castro Mendoza', 'Masculino', '2020-08-20', 'Táchira', 8, 1, 1, 'V13131313', 'Carmen Mendoza', 'V13131313', TRUE, 'Miguel Castro', 'V12121212', FALSE, FALSE, TRUE, 'Madre', NOW(), NOW()),
--- Estudiantes para 3er Nivel (5 años)
-(3, '29888777', 'Valentina', 'Silva García', 'Femenino', '2019-11-10', 'Mérida', 9, 1, 0, 'V14141414', 'Isabel García', 'V15151515', TRUE, 'Ricardo Silva', 'V14141414', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
--- Estudiantes para 1er Grado (6 años)
-(4, '28111222', 'Mateo', 'Ortega Vargas', 'Masculino', '2018-02-25', 'Táchira', 1, 1, 2, 'V16161616', 'Patricia Vargas', 'V17171717', FALSE, 'Javier Ortega', 'V16161616', TRUE, FALSE, TRUE, 'Padre', NOW(), NOW()),
--- Estudiantes para 2do Grado (7 años)
-(5, '27555444', 'Camila', 'Jiménez Chacón', 'Femenino', '2017-07-30', 'Zulia', 2, 1, 1, 'V19191919', 'Verónica Chacón', 'V19191919', TRUE, 'Andrés Jiménez', 'V18181818', TRUE, TRUE, FALSE, 'Madre', NOW(), NOW()),
--- Estudiantes para 3er Grado (8 años)
-(6, '26888777', 'Santiago', 'Sánchez González', 'Masculino', '2016-09-05', 'Táchira', 7, 1, 1, 'V10101010', 'Laura González', 'V11112222', TRUE, 'Roberto Sánchez', 'V10101010', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
--- Estudiantes para 4to Grado (9 años)
-(7, '25111222', 'Isabella', 'Castro Mendoza', 'Femenino', '2015-04-12', 'Táchira', 8, 1, 1, 'V12121212', 'Carmen Mendoza', 'V13131313', TRUE, 'Miguel Castro', 'V12121212', FALSE, FALSE, TRUE, 'Abuela', NOW(), NOW()),
--- Estudiantes para 5to Grado (10 años)
-(8, '24555444', 'Sebastián', 'Silva García', 'Masculino', '2014-10-18', 'Mérida', 9, 1, 0, 'V14141414', 'Isabel García', 'V15151515', TRUE, 'Ricardo Silva', 'V14141414', TRUE, TRUE, FALSE, 'Padre', NOW(), NOW()),
--- Estudiante Retirado
-(9, '23888777', 'Lucas', 'Ortega Vargas', 'Masculino', '2013-01-20', 'Táchira', 1, 6, 2, 'V16161616', 'Patricia Vargas', 'V17171717', FALSE, 'Javier Ortega', 'V16161616', TRUE, FALSE, TRUE, 'Padre', NOW(), NOW()),
--- Estudiante Nuevo Ingreso para el año actual
-(10, '29999888', 'Valeria', 'Núñez', 'Femenino', '2018-03-03', 'Barinas', 3, 2, 0, 'V18181818', 'Ana Núñez', 'V20202020', TRUE, 'Pedro Núñez', 'V21212121', TRUE, TRUE, FALSE, 'Tío', NOW(), NOW());
-
+DO $$
+BEGIN
+    FOR i IN 1..60 LOOP
+        INSERT INTO "representative" ("ci", "name", "lastName", "telephoneNumber", "email", "profesion", "maritalStat", "birthday", "created_at", "updated_at")
+        VALUES (
+            'V' || (20000000 + i), 
+            'Padre_' || i, 
+            'Apellido_' || i, 
+            '0424-' || LPAD(i::text, 7, '0'), 
+            'rep' || i || '@test.com', 
+            CASE WHEN i%3=0 THEN 'Ingeniero' WHEN i%3=1 THEN 'Comerciante' ELSE 'Empleado' END,
+            'Casado(a)',
+            '1985-05-15',
+            NOW(), 
+            NOW()
+        );
+    END LOOP;
+END $$;
 
 -- -----------------------------------------------------------------------------
--- 4. Rellenar Tabla 'section' para DOS periodos académicos
---    Asignaremos docentes a grados para los periodos 2023-2024 y 2024-2025.
+-- 4. ESTUDIANTES (100 niños)
 -- -----------------------------------------------------------------------------
--- Periodo Académico 2023-2024 (ID: 1)
+DO $$
+BEGIN
+    FOR i IN 1..100 LOOP
+        INSERT INTO "student" ("id", "ci", "name", "lastName", "sex", "birthday", "status_id", "representativeID", "motherName", "motherCi", "created_at", "updated_at")
+        VALUES (
+            i,
+            'V' || (30000000 + i),
+            'Alumno_' || i,
+            'Apellido_' || (i % 60 + 1), -- Relacionar con algunos representantes por apellido
+            CASE WHEN i%2=0 THEN 'Masculino' ELSE 'Femenino' END,
+            '2015-06-15',
+            1, -- Activo
+            'V' || (20000000 + (i % 60 + 1)),
+            'Madre_' || i,
+            'V4000000' || i,
+            NOW(),
+            NOW()
+        );
+    END LOOP;
+END $$;
+
+-- -----------------------------------------------------------------------------
+-- 5. SECCIONES (Para los últimos 3 periodos académicos)
+--    IDs Periodos: 8 (2022-23), 9 (2023-24), 10 (2024-25)
+-- -----------------------------------------------------------------------------
+
+-- Periodo 2022-2023 (ID 8) - Grados 1 al 6, Sección A
 INSERT INTO "section" ("id", "teacherCI", "gradeID", "academicPeriodID", "seccion", "created_at", "updated_at") VALUES
-(1, 3, 1, 1, 'A', NOW(), NOW()), -- 1er Nivel A, Prof. Lucía Pérez
-(2, 4, 2, 1, 'A', NOW(), NOW()), -- 2do Nivel A, Prof. Jorge Hernández
-(3, 5, 3, 1, 'A', NOW(), NOW()), -- 3er Nivel A, Prof. María Fernández
-(4, 6, 4, 1, 'A', NOW(), NOW()), -- 1er Grado A, Prof. Pedro Ramírez
-(5, 7, 5, 1, 'A', NOW(), NOW()), -- 2do Grado A, Prof. Sofía Torres
-(6, 8, 6, 1, 'A', NOW(), NOW()), -- 3er Grado A, Prof. Luis Díaz
-(7, 9, 7, 1, 'A', NOW(), NOW()), -- 4to Grado A, Prof. Elena Rojas
-(8, 10, 8, 1, 'A', NOW(), NOW()); -- 5to Grado A, Prof. Daniel Morales
+(801, 3, 3, 8, 'A', NOW(), NOW()), (802, 4, 4, 8, 'A', NOW(), NOW()), (803, 5, 5, 8, 'A', NOW(), NOW()),
+(804, 6, 6, 8, 'A', NOW(), NOW()), (805, 7, 7, 8, 'A', NOW(), NOW()), (806, 8, 8, 8, 'A', NOW(), NOW());
 
--- Periodo Académico 2024-2025 (ID: 2)
+-- Periodo 2023-2024 (ID 9) - Grados 1 al 6, Sección A y B
 INSERT INTO "section" ("id", "teacherCI", "gradeID", "academicPeriodID", "seccion", "created_at", "updated_at") VALUES
-(9, 3, 1, 2, 'A', NOW(), NOW()), -- 1er Nivel A, Prof. Lucía Pérez
-(10, 4, 2, 2, 'A', NOW(), NOW()), -- 2do Nivel A, Prof. Jorge Hernández
-(11, 5, 3, 2, 'A', NOW(), NOW()), -- 3er Nivel A, Prof. María Fernández
-(12, 6, 4, 2, 'A', NOW(), NOW()), -- 1er Grado A, Prof. Pedro Ramírez
-(13, 7, 5, 2, 'A', NOW(), NOW()), -- 2do Grado A, Prof. Sofía Torres
-(14, 8, 6, 2, 'A', NOW(), NOW()), -- 3er Grado A, Prof. Luis Díaz
-(15, 9, 7, 2, 'A', NOW(), NOW()), -- 4to Grado A, Prof. Elena Rojas
-(16, 10, 8, 2, 'A', NOW(), NOW()); -- 5to Grado A, Prof. Daniel Morales
+(901, 3, 3, 9, 'A', NOW(), NOW()), (902, 4, 3, 9, 'B', NOW(), NOW()),
+(903, 5, 4, 9, 'A', NOW(), NOW()), (904, 6, 4, 9, 'B', NOW(), NOW()),
+(905, 7, 5, 9, 'A', NOW(), NOW()), (906, 8, 6, 9, 'A', NOW(), NOW()),
+(907, 9, 7, 9, 'A', NOW(), NOW()), (908, 10, 8, 9, 'A', NOW(), NOW());
 
-
--- -----------------------------------------------------------------------------
--- 5. Rellenar Tabla 'enrollment' para el PERIODO ANTERIOR (2023-2024)
---    Simulamos un año escolar ya finalizado.
--- -----------------------------------------------------------------------------
-INSERT INTO "enrollment" ("id", "studentID", "sectionID", "registrationDate", "repeater", "chemiseSize", "pantsSize", "shoesSize", "weight", "stature", "diseases", "observation", "birthCertificateCheck", "vaccinationCardCheck", "final_grade", "final_grade_observation") VALUES
--- Estudiantes promovidos
-(1, 1, 1, '2023-09-20', FALSE, 'S', '4', '25', 14.5, 0.95, 'Ninguna', 'Participativo', TRUE, TRUE, 'A', 'Excelente rendimiento, promovido con honores.'),
-(2, 2, 2, '2023-09-21', FALSE, 'S', '6', '27', 16.0, 1.05, 'Asma Leve', 'Requiere seguimiento', TRUE, TRUE, 'A', 'Promovido. Muestra gran interés.'),
-(3, 3, 3, '2023-09-22', FALSE, 'M', '8', '29', 18.2, 1.15, 'Ninguna', 'Muy creativo', TRUE, TRUE, 'A', 'Promovida. Destaca en actividades artísticas.'),
-(4, 4, 4, '2023-09-23', FALSE, 'M', '10', '31', 22.0, 1.20, 'Alergia al polvo', 'Se distrae con facilidad', TRUE, FALSE, 'B', 'Promovido. Necesita reforzar lectura.'),
-(5, 5, 5, '2023-09-24', FALSE, 'L', '12', '33', 25.5, 1.28, 'Ninguna', 'Líder del grupo', FALSE, TRUE, 'A', 'Promovida. Excelente participación.'),
-(6, 6, 6, '2023-09-25', FALSE, 'L', '14', '35', 30.1, 1.35, 'Ninguna', 'Colaborador', TRUE, TRUE, 'B', 'Promovido. Debe mejorar la caligrafía.'),
-(7, 7, 7, '2023-09-26', FALSE, 'XL', '16', '36', 35.0, 1.42, 'Miopía', 'Usa lentes', TRUE, TRUE, 'C', 'Promovida. Aprobó con la calificación mínima.'),
--- Estudiante que repetirá
-(8, 8, 8, '2023-09-27', FALSE, 'XL', '16', '37', 38.5, 1.45, 'Ninguna', 'Poca participación', TRUE, TRUE, 'D', 'No aprobado. Repetirá el grado.');
-
+-- Periodo 2024-2025 (ID 10 - Actual) - Grados 1 al 6, Sección A, B y C en algunos
+INSERT INTO "section" ("id", "teacherCI", "gradeID", "academicPeriodID", "seccion", "created_at", "updated_at") VALUES
+(1001, 11, 3, 10, 'A', NOW(), NOW()), (1002, 12, 3, 10, 'B', NOW(), NOW()), (1003, 13, 3, 10, 'C', NOW(), NOW()),
+(1004, 14, 4, 10, 'A', NOW(), NOW()), (1005, 15, 4, 10, 'B', NOW(), NOW()),
+(1006, 18, 5, 10, 'A', NOW(), NOW()), (1007, 19, 5, 10, 'B', NOW(), NOW()),
+(1008, 20, 6, 10, 'A', NOW(), NOW()), (1009, 21, 7, 10, 'A', NOW(), NOW()), (1010, 22, 8, 10, 'A', NOW(), NOW());
 
 -- -----------------------------------------------------------------------------
--- 6. Rellenar Tabla 'notes' para el PERIODO ANTERIOR (2023-2024)
---    Notas de varios lapsos para las matrículas del año pasado.
+-- 6. MATRÍCULAS (Inscripciones)
 -- -----------------------------------------------------------------------------
--- Notas para Matrícula ID 1 (Ana Sofía)
-INSERT INTO "notes" ("enrollmentID", "notes", "period", "subject", "registrationDate") VALUES
-(1, 'A', '1er Lapso', 'Lenguaje', '2023-12-10'), (1, 'A', '2do Lapso', 'Lenguaje', '2024-03-15'), (1, 'A', '3er Lapso', 'Lenguaje', '2024-06-20'),
-(1, 'A', '1er Lapso', 'Matemática', '2023-12-10'), (1, 'B', '2do Lapso', 'Matemática', '2024-03-15'), (1, 'A', '3er Lapso', 'Matemática', '2024-06-20');
--- Notas para Matrícula ID 4 (Mateo)
-INSERT INTO "notes" ("enrollmentID", "notes", "period", "subject", "registrationDate") VALUES
-(4, 'B', '1er Lapso', 'Lenguaje', '2023-12-10'), (4, 'C', '2do Lapso', 'Lenguaje', '2024-03-15'), (4, 'B', '3er Lapso', 'Lenguaje', '2024-06-20'),
-(4, 'C', '1er Lapso', 'Ciencias', '2023-12-10'), (4, 'B', '2do Lapso', 'Ciencias', '2024-03-15'), (4, 'B', '3er Lapso', 'Ciencias', '2024-06-20');
--- Notas para Matrícula ID 8 (Sebastián, el repitente)
-INSERT INTO "notes" ("enrollmentID", "notes", "period", "subject", "registrationDate") VALUES
-(8, 'C', '1er Lapso', 'Matemática', '2023-12-10'), (8, 'D', '2do Lapso', 'Matemática', '2024-03-15'), (8, 'D', '3er Lapso', 'Matemática', '2024-06-20');
 
+-- Llenar Periodo 2023-2024 (ID 9) - 40 Estudiantes
+DO $$
+BEGIN
+    FOR i IN 1..40 LOOP
+        INSERT INTO "enrollment" ("id", "studentID", "sectionID", "academicPeriodID", "registrationDate", "repeater", "chemiseSize", "pantsSize", "shoesSize", "weight", "stature", "final_grade")
+        VALUES (
+            (900 + i), 
+            i, 
+            901 + (i % 8), 
+            9, 
+            '2023-09-15', 
+            FALSE, 
+            'S', '6', '30', 25.5, 1.20,
+            CASE WHEN i%5=0 THEN 'B' ELSE 'A' END
+        );
+    END LOOP;
+END $$;
 
--- -----------------------------------------------------------------------------
--- 7. Rellenar Tabla 'attendance' y 'attendanceDetails' para el PERIODO ANTERIOR
--- -----------------------------------------------------------------------------
--- Asistencia para la sección 4 (1er Grado A) el día 2024-02-05
-INSERT INTO "attendance" ("id", "date_a", "sectionID", "observaciones") VALUES (1, '2024-02-05', 4, 'Actividad especial de manualidades.');
-INSERT INTO "attendanceDetails" ("attendanceID", "studentID", "assistant") VALUES
-(1, 4, TRUE); -- Mateo asistió
-
--- Asistencia para la sección 8 (5to Grado A) el día 2024-05-10
-INSERT INTO "attendance" ("id", "date_a", "sectionID", "observaciones") VALUES (2, '2024-05-10', 8, 'Examen de matemática.');
-INSERT INTO "attendanceDetails" ("attendanceID", "studentID", "assistant") VALUES
-(2, 8, FALSE); -- Sebastián no asistió
-
-
--- -----------------------------------------------------------------------------
--- 8. Rellenar Tabla 'enrollment' para el PERIODO ACTUAL (2024-2025)
---    Inscribimos a los promovidos, repitentes y nuevos ingresos.
--- -----------------------------------------------------------------------------
-INSERT INTO "enrollment" ("id", "studentID", "sectionID", "registrationDate", "repeater", "chemiseSize", "pantsSize", "shoesSize", "weight", "stature", "diseases", "observation", "birthCertificateCheck", "vaccinationCardCheck") VALUES
--- Promovidos al siguiente grado
-(9, 1, 10, '2024-09-20', FALSE, 'S', '6', '26', 16.5, 1.02, 'Ninguna', 'Continúa participativa', TRUE, TRUE), -- Ana Sofía -> 2do Nivel (Sección ID 10)
-(10, 2, 11, '2024-09-21', FALSE, 'M', '8', '28', 18.0, 1.10, 'Asma Leve', 'Traer inhalador', TRUE, TRUE),     -- Diego -> 3er Nivel (Sección ID 11)
-(11, 3, 12, '2024-09-22', FALSE, 'M', '10', '30', 20.2, 1.20, 'Ninguna', 'Adaptada al nuevo grado', TRUE, TRUE), -- Valentina -> 1er Grado (Sección ID 12)
-(12, 4, 13, '2024-09-23', FALSE, 'L', '12', '32', 24.5, 1.26, 'Alergia al polvo', 'Reforzar atención', TRUE, TRUE),-- Mateo -> 2do Grado (Sección ID 13)
-(13, 5, 14, '2024-09-24', FALSE, 'L', '14', '34', 28.0, 1.34, 'Ninguna', 'Sigue siendo líder', TRUE, TRUE),    -- Camila -> 3er Grado (Sección ID 14)
-(14, 6, 15, '2024-09-25', FALSE, 'XL', '16', '36', 33.0, 1.41, 'Ninguna', 'Mejoró caligrafía', TRUE, TRUE),    -- Santiago -> 4to Grado (Sección ID 15)
-(15, 7, 16, '2024-09-26', FALSE, 'XL', '16', '37', 38.0, 1.48, 'Miopía', 'Revisión oftalmológica pendiente', TRUE, FALSE), -- Isabella -> 5to Grado (Sección ID 16)
--- Repitente
-(16, 8, 16, '2024-09-27', TRUE, 'XL', '18', '38', 41.0, 1.50, 'Ninguna', 'Comprometido a mejorar', TRUE, TRUE),-- Sebastián -> Repite 5to Grado (Sección ID 16)
--- Nuevo Ingreso
-(17, 10, 12, '2024-09-28', FALSE, 'M', '10', '31', 22.5, 1.21, 'Ninguna', 'Proviene de otra ciudad', TRUE, TRUE); -- Valeria -> 1er Grado (Sección ID 12)
-
+-- Llenar Periodo 2024-2025 (ID 10 - Actual) - 80 Estudiantes
+DO $$
+BEGIN
+    FOR i IN 1..80 LOOP
+        INSERT INTO "enrollment" ("id", "studentID", "sectionID", "academicPeriodID", "registrationDate", "repeater", "chemiseSize", "pantsSize", "shoesSize", "weight", "stature")
+        VALUES (
+            (1000 + i), 
+            i, 
+            1001 + (i % 10), 
+            10, 
+            '2024-09-15', 
+            CASE WHEN i=40 THEN TRUE ELSE FALSE END, 
+            'M', '8', '32', 28.0, 1.30
+        );
+    END LOOP;
+END $$;
 
 -- -----------------------------------------------------------------------------
--- 9. Rellenar Tabla 'student_academic_history' para el nuevo ingreso
+-- 7. BRIGADAS (Asignaciones)
 -- -----------------------------------------------------------------------------
-INSERT INTO "student_academic_history" ("studentID", "academicPeriodID", "gradeID", "institutionName", "gradeAchieved", "isApproved", "created_at", "updated_at") VALUES
-(10, 1, 3, 'U.E. Colegio Los Próceres (Barinas)', 'A', TRUE, NOW(), NOW()); -- Historial de Valeria (Estudiante ID 10) del año anterior (Periodo ID 1, Grado ID 3 -> 3er Nivel)
 
+-- Docentes encargados por periodo
+INSERT INTO "brigadeTeacherDate" ("brigadeID", "personalID", "academicPeriodID", "dateI") VALUES
+(1, 10, 9, '2023-10-01'), (2, 11, 9, '2023-10-01'), (3, 12, 9, '2023-10-01'),
+(1, 10, 10, '2024-10-01'), (2, 23, 10, '2024-10-01'), (3, 24, 10, '2024-10-01'),
+(4, 25, 10, '2024-10-01'), (5, 26, 10, '2024-10-01');
+
+-- Estudiantes en brigadas (Periodo Actual)
+DO $$
+BEGIN
+    FOR i IN 1..40 LOOP
+        INSERT INTO "studentBrigade" ("studentID", "brigadeID", "academicPeriodID", "assignmentDate")
+        VALUES (i, (i % 7 + 1), 10, NOW());
+    END LOOP;
+END $$;
 
 -- -----------------------------------------------------------------------------
--- 10. Asignación de Brigadas (Docentes y Estudiantes)
+-- 8. NOTAS (Para algunas materias y alumnos en el periodo actual)
 -- -----------------------------------------------------------------------------
--- Asignar Docentes a Brigadas por Periodo
-INSERT INTO "brigadeTeacherDate" ("id", "brigadeID", "personalID", "academicPeriodID", "dateI") VALUES
-(1, 1, 5, 1, '2023-10-01'), -- Ecológica | Prof. María F. | Periodo 2023-24
-(2, 2, 6, 1, '2023-10-01'), -- Patrulleros | Prof. Pedro R. | Periodo 2023-24
-(3, 1, 5, 2, '2024-10-01'), -- Ecológica | Prof. María F. | Periodo 2024-25
-(4, 3, 7, 2, '2024-10-01'); -- Comunicacional | Prof. Sofía T. | Periodo 2024-25
+DO $$
+BEGIN
+    FOR i IN 1001..1020 LOOP -- Primeros 20 inscritos del periodo actual
+        INSERT INTO "notes" ("enrollmentID", "notes", "period", "subject", "registrationDate")
+        VALUES 
+        (i, 'A', '1er Lapso', 'Lenguaje', '2024-12-05'),
+        (i, 'B', '1er Lapso', 'Matemática', '2024-12-05'),
+        (i, 'A', '1er Lapso', 'Ciencias', '2024-12-05');
+    END LOOP;
+END $$;
 
--- Asignar Estudiantes a Brigadas por Periodo
--- Periodo 2023-2024
-INSERT INTO "studentBrigade" ("studentID", "brigadeID", "academicPeriodID", "assignmentDate") VALUES
-(4, 2, 1, '2023-10-15'), -- Mateo en Patrulleros
-(5, 2, 1, '2023-10-15'), -- Camila en Patrulleros
-(6, 1, 1, '2023-10-16'), -- Santiago en Ecológica
-(7, 1, 1, '2023-10-16'); -- Isabella en Ecológica
+-- -----------------------------------------------------------------------------
+-- 9. ASISTENCIA (Simulacro de una semana para 3 secciones)
+-- -----------------------------------------------------------------------------
+DO $$
+DECLARE
+    att_id BIGINT;
+    sec_id INT;
+    day_date DATE;
+BEGIN
+    FOR sec_id IN 1001..1003 LOOP -- Secciones A, B y C del 1er Grado actual
+        FOR j IN 0..4 LOOP -- Lunes a Viernes
+            day_date := '2025-01-13'::DATE + j;
+            
+            INSERT INTO "attendance" ("date_a", "sectionID", "observaciones") 
+            VALUES (day_date, sec_id, 'Clases normales')
+            RETURNING id INTO att_id;
+            
+            -- Llenar detalles de asistencia para todos los niños de esa sección
+            INSERT INTO "attendanceDetails" ("attendanceID", "studentID", "assistant")
+            SELECT att_id, e."studentID", (RANDOM() > 0.1) -- 90% asistencia
+            FROM "enrollment" e 
+            WHERE e."sectionID" = sec_id;
+            
+        END LOOP;
+    END LOOP;
+END $$;
 
--- Periodo 2024-2025
-INSERT INTO "studentBrigade" ("studentID", "brigadeID", "academicPeriodID", "assignmentDate") VALUES
-(4, 2, 2, '2024-10-15'), -- Mateo sigue en Patrulleros
-(5, 3, 2, '2024-10-15'), -- Camila cambió a Comunicacional
-(10, 1, 2, '2024-10-16'); -- Valeria (nueva) se une a Ecológica
+-- -----------------------------------------------------------------------------
+-- 10. HISTORIAL ACADÉMICO (Para nuevos ingresos)
+-- -----------------------------------------------------------------------------
+INSERT INTO "student_academic_history" ("studentID", "academicPeriodID", "gradeID", "institutionName", "gradeAchieved", "isApproved") VALUES
+(90, 9, 2, 'Col. San José', 'A', TRUE),
+(91, 9, 2, 'Escuela Nacional', 'B', TRUE),
+(92, 9, 2, 'Col. Adventista', 'A', TRUE);
 
 -- #############################################################################
--- ## FIN DEL SCRIPT DE DATOS DE PRUEBA
+-- ## FIN DEL SCRIPT DE SATURACIÓN DE DATOS
 -- #############################################################################

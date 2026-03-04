@@ -13,7 +13,6 @@ services:
       - gescol-data:/var/lib/postgresql/data
       - ./src/db/script_escuela.sql:/docker-entrypoint-initdb.d/01_schema.sql
       - ./src/db/script_usability.sql:/docker-entrypoint-initdb.d/02_usability_data.sql
-      - ./src/db/scrip_test.sql:/docker-entrypoint-initdb.d/03_test_data.sql
     networks:
       - gescol-network
 

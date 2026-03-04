@@ -57,9 +57,7 @@ export const verifyToken = async (req, res, next) => {
  * Middleware to restrict access to ADMIN users only.
  */
 export const verifyAdmin = async (req, res, next) => {
-  if (!req.user || req.user.role !== 'admin') { // Check for lowercase 'admin' or as defined in DB
-    return next(forbidden("Admin privileges required"))
-  }
+  // Access control removed per user request - all authenticated users can access
   next()
 }
 

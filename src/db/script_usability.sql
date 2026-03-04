@@ -141,3 +141,9 @@ INSERT INTO "academic_period" ("name", "start_date", "end_date", "is_current", "
 ('2022-2023', '2022-09-15', '2023-07-31', FALSE, NOW(), NOW()),
 ('2023-2024', '2023-09-15', '2024-07-31', FALSE, NOW(), NOW()),
 ('2024-2025', '2024-09-16', '2025-07-31', TRUE, NOW(), NOW());
+
+INSERT INTO "personal" ("id", "ci", "name", "lastName", "idRole", "telephoneNumber", "email", "birthday", "direction", "parish", "created_at", "updated_at") VALUES
+(1,  'V10000001', 'Andrés', 'Bello', 1, '0414-0000001', 'andres@escuela.com', '1975-01-01', 'Centro', 1, NOW(), NOW());
+
+INSERT INTO "usuario" ("id", "username", "password", "security_word", "respuesta_de_seguridad", "is_active", "personal_id", "created_at", "updated_at") VALUES
+(1, 'gescol', '$2a$12$jW7B0/2xNgKuCN0brGac9O08Zr3xlKzZauE/DAAgTOaihOyZieDf2', 'seguridad', 'gescol', TRUE, 1, NOW(), NOW());

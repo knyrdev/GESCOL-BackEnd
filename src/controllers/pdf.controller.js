@@ -592,8 +592,9 @@ const PdfController = {
   GenerateAllEnrolledStudentsPdf: async (req, res) => {
     try {
       console.log("📄 Generando PDF de listado de todos los estudiantes con grado y sección...")
+      const { periodId } = req.query
 
-      const students = await MatriculaModel.getAllInscriptions()
+      const students = await MatriculaModel.getAllInscriptions(periodId)
 
       if (!students || students.length === 0) {
         return res.status(404).json({
@@ -674,9 +675,10 @@ const PdfController = {
   generateStudentsByGradePdf: async (req, res) => {
     try {
       const { gradeId } = req.params
+      const { periodId } = req.query
       console.log(`📄 Generando PDF de estudiantes para el grado con ID: ${gradeId}...`)
 
-      const students = await MatriculaModel.getInscriptionsByGrade(gradeId)
+      const students = await MatriculaModel.getInscriptionsByGrade(gradeId, periodId)
 
       if (!students || students.length === 0) {
         return res.status(404).json({

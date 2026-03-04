@@ -62,8 +62,15 @@ INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALU
 
 -- Parroquias de Cárdenas (Táchira)
 INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
-('La Blanca', (SELECT id FROM "municipality" WHERE name = 'Cárdenas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
-('Táriba', (SELECT id FROM "municipality" WHERE name = 'Cárdenas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+('Táriba', (SELECT id FROM "municipality" WHERE name = 'Cárdenas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Amenodoro Rangel Lamús', (SELECT id FROM "municipality" WHERE name = 'Cárdenas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('La Florida', (SELECT id FROM "municipality" WHERE name = 'Cárdenas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Ayacucho (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('San Juan de Colón', (SELECT id FROM "municipality" WHERE name = 'Ayacucho' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Rivas Berti', (SELECT id FROM "municipality" WHERE name = 'Ayacucho' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('San Pedro del Río', (SELECT id FROM "municipality" WHERE name = 'Ayacucho' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
 
 -- Parroquias de Torbes (Táchira)
 INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
@@ -73,13 +80,97 @@ INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALU
 INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
 ('Palmira', (SELECT id FROM "municipality" WHERE name = 'Guásimos' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
 
--- Parroquias de Ayacucho (Táchira)
+-- Parroquias de Andrés Bello (Táchira)
 INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
-('San Juan de Colón', (SELECT id FROM "municipality" WHERE name = 'Ayacucho' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+('Cordero', (SELECT id FROM "municipality" WHERE name = 'Andrés Bello' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Córdoba (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Santa Ana del Táchira', (SELECT id FROM "municipality" WHERE name = 'Córdoba' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Fernández Feo (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('San Rafael del Piñal', (SELECT id FROM "municipality" WHERE name = 'Fernández Feo' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Alberto Adriani', (SELECT id FROM "municipality" WHERE name = 'Fernández Feo' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Santo Domingo', (SELECT id FROM "municipality" WHERE name = 'Fernández Feo' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Jáuregui (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('La Grita', (SELECT id FROM "municipality" WHERE name = 'Jáuregui' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Emilio Constantino Guerrero', (SELECT id FROM "municipality" WHERE name = 'Jáuregui' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Monseñor Miguel Antonio Salas', (SELECT id FROM "municipality" WHERE name = 'Jáuregui' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Libertador (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Abejales', (SELECT id FROM "municipality" WHERE name = 'Libertador' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Doradas', (SELECT id FROM "municipality" WHERE name = 'Libertador' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('Emeterio Ochoa', (SELECT id FROM "municipality" WHERE name = 'Libertador' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('San Joaquín de Navay', (SELECT id FROM "municipality" WHERE name = 'Libertador' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Michelena (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Michelena', (SELECT id FROM "municipality" WHERE name = 'Michelena' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de Panamericano (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Coloncito', (SELECT id FROM "municipality" WHERE name = 'Panamericano' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW()),
+('La Palmita', (SELECT id FROM "municipality" WHERE name = 'Panamericano' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
+
+-- Parroquias de San Judas Tadeo (Táchira)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Umuquena', (SELECT id FROM "municipality" WHERE name = 'San Judas Tadeo' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Táchira')), NOW(), NOW());
 
 -- Parroquias de Libertador (Mérida)
 INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
-('Antonio Spinetti Dini', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW());
+('Antonio Spinetti Dini', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Arias', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Caracciolo Parra Pérez', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Domingo Peña', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('El Llano', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Gonzalo Picón Febres', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Jacinto Plaza', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Juan Rodríguez Suárez', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Lasso de la Vega', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Mariano Picón Salas', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Milla', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Osuna Rodríguez', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Sagrario', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Santa Elena', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('El Morro', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Los Nevados', (SELECT id FROM "municipality" WHERE name = 'Libertador (Mérida)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW());
+
+-- Parroquias de Alberto Adriani (Mérida)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Presidente Betancourt', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Presidente Páez', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Presidente Rómulo Gallegos', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Gabriel Picón González', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Hector Amable Mora', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('José Nucete Sardi', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW()),
+('Pulido Méndez', (SELECT id FROM "municipality" WHERE name = 'Alberto Adriani' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Mérida')), NOW(), NOW());
+
+-- Parroquias de Barinas (Barinas)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Barinas', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Alfredo Arvelo Larriva', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('San Silvestre', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Santa Inés', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Santa Lucía', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Torunos', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('El Carmen', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Rómulo Betancourt', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Corazón de Jesús', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Ramón Ignacio Méndez', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Alto Barinas', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Manuel Palacio Fajardo', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Juan Antonio Rodríguez Domínguez', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Dominga Ortiz de Páez', (SELECT id FROM "municipality" WHERE name = 'Barinas' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW());
+
+-- Parroquias de Bolívar (Barinas)
+INSERT INTO "parish" ("name", "minicipalityID", "created_at", "updated_at") VALUES
+('Barinitas', (SELECT id FROM "municipality" WHERE name = 'Bolívar (Barinas)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Altamira de Cáceres', (SELECT id FROM "municipality" WHERE name = 'Bolívar (Barinas)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW()),
+('Calderas', (SELECT id FROM "municipality" WHERE name = 'Bolívar (Barinas)' AND "stateID" = (SELECT id FROM "state" WHERE name = 'Barinas')), NOW(), NOW());
 
 -- -----------------------------------------------------------------------------
 -- 5. Rellenar Tabla 'rol'

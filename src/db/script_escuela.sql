@@ -52,7 +52,7 @@ CREATE TABLE "personal" (
   "telephoneNumber" varchar(20),
   "email" varchar(100),
   "birthday" timestamp,
-  "direction" varchar(30),
+  "direction" varchar(100),
   "parish" bigint,
   "created_at" timestamp,
   "updated_at" timestamp
@@ -107,8 +107,8 @@ CREATE TABLE "representative" (
   "profesion" varchar(100),
   "birthday" timestamp,
   "telephoneHouse" varchar(20),
-  "roomAdress" varchar(50),
-  "workPlace" varchar(50),
+  "roomAdress" varchar(100),
+  "workPlace" varchar(100),
   "jobNumber" varchar(20),
   "created_at" timestamp,
   "updated_at" timestamp

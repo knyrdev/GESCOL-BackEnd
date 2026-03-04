@@ -63,7 +63,7 @@ const personalBaseSchema = {
       'date.format': 'Debe tener formato ISO (YYYY-MM-DD)'
     }),
   direction: Joi.string()
-    .max(30)
+    .max(100)
     .messages({
       'string.max': 'La dirección no puede exceder los {#limit} caracteres'
     }),

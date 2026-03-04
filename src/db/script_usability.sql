@@ -146,4 +146,4 @@ INSERT INTO "personal" ("id", "ci", "name", "lastName", "idRole", "telephoneNumb
 (900,  'V10000001', 'Andrés', 'Bello', 1, '0414-0000001', 'andres@escuela.com', '1975-01-01', 'Centro', 1, NOW(), NOW());
 
 INSERT INTO "usuario" ("id", "username", "password", "security_word", "respuesta_de_seguridad", "is_active", "personal_id", "created_at", "updated_at") VALUES
-(900, 'gescol', '$2a$12$jW7B0/2xNgKuCN0brGac9O08Zr3xlKzZauE/DAAgTOaihOyZieDf2', 'seguridad', 'gescol', TRUE, 1, NOW(), NOW());
+(900, 'gescol', '$2a$12$jW7B0/2xNgKuCN0brGac9O08Zr3xlKzZauE/DAAgTOaihOyZieDf2', 'seguridad', 'gescol', TRUE, 900, NOW(), NOW());

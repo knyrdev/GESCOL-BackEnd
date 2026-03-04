@@ -18,7 +18,7 @@ const create = async ({ name, lastName, idRole, telephoneNumber, ci, email, birt
     if (email && email.length > 100) {
       throw new Error(`El email es demasiado largo (máximo 100 caracteres, actual: ${email.length})`)
     }
-    if (direction && direction.length > 30) {
+    if (direction && direction.length > 100) {
       throw new Error(`La dirección es demasiado larga (máximo 30 caracteres, actual: ${direction.length})`)
     }
 

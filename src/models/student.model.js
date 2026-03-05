@@ -118,11 +118,6 @@ const findStudentByCi = async (ci) => {
           s.*,
           r.name as representative_name,
           r."lastName" as representative_lastName,
-          r."telephoneNumber" as representative_phone,
-          r.email as representative_email,
-          r."roomAdress" as representative_address,
-          r."maritalStat" as relationship,
-          r.profesion as occupation,
           ss.descripcion as status_description
         FROM "student" s
         LEFT JOIN "representative" r ON s."representativeID" = r.ci
@@ -132,9 +127,39 @@ const findStudentByCi = async (ci) => {
       values: [ci],
     };
     const { rows } = await db.query(query);
-    return rows[0];
+
+
+    return rows[0] || null;
   } catch (error) {
     console.error("Error in findStudentByCi:", error);
+    throw error;
+  }
+};
+
+// **NUEVO: Buscar un estudiante por su ID**
+const findOneById = async (id) => {
+  try {
+    const query = {
+      text: `
+        SELECT 
+          s.*,
+          r.name AS representative_name,
+          r."lastName" AS "representative_lastName",
+          r."telephoneNumber" AS representative_phone,
+          ss.descripcion AS status_description,
+          p.name as parish_name
+        FROM "student" s
+        LEFT JOIN "representative" r ON s."representativeID" = r.ci
+        LEFT JOIN "status_student" ss ON s.status_id = ss.id
+        LEFT JOIN "parish" p ON s."parishID" = p.id
+        WHERE s.id = $1
+      `,
+      values: [id],
+    };
+    const { rows } = await db.query(query);
+    return rows[0] || null;
+  } catch (error) {
+    console.error("Error in findOneById student:", error);
     throw error;
   }
 };
@@ -359,6 +384,7 @@ export const StudentModel = {
   createStudentRegistry,
   getRegisteredNotEnrolledStudents,
   findStudentByCi,
+  findOneById,
   updateStudentStatus,
   getAllStudents,
   updateStudent,

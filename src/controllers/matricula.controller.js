@@ -80,12 +80,14 @@ const createSchoolInscription = async (req, res) => {
       return res.status(400).json({ ok: false, msg: "Estudiante no encontrado" })
     }
 
+    console.log("Datos del Estudiante Encontrado:", student);
+
     // Verificar que el estudiante esté en estado activo (1) para inscripción
-    if (student.status_id !== 1) {
+    if (Number(student.status_id) !== 1) {
       return res.status(400).json({
         ok: false,
         msg: "El estudiante no está en estado activo para inscribirse",
-        status: student.status_description,
+        status: student.status_description || "Estado desconocido",
       })
     }
 

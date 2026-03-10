@@ -283,7 +283,7 @@ const getSectionsByGradeAndPeriod = async (gradeId, periodId) => {
         SELECT 
           s.*,
           p.name as teacher_name,
-          p."lastName" as teacher_lastName,
+          p."lastName" as "teacher_lastName",
           COUNT(e."studentID") as student_count
         FROM "section" s
         LEFT JOIN "personal" p ON s."teacherCI" = p.id
@@ -342,7 +342,7 @@ const getInscriptionsByGradeAndPeriod = async (gradeId, periodId) => {
           g.name as grade_name,
           sec.seccion as section_name,
           p.name as teacher_name,
-          p."lastName" as teacher_lastName
+          p."lastName" as "teacher_lastName"
         FROM "enrollment" e
         JOIN "student" s ON e."studentID" = s.id
         JOIN "section" sec ON e."sectionID" = sec.id
@@ -434,7 +434,7 @@ const getInscriptionById = async (id) => {
           g.name as grade_name,
           sec.seccion as section_name,
           p.name as teacher_name,
-          p."lastName" as teacher_lastName
+          p."lastName" as "teacher_lastName"
         FROM "enrollment" e
         JOIN "student" s ON e."studentID" = s.id
         JOIN "section" sec ON e."sectionID" = sec.id
@@ -632,7 +632,7 @@ const getAllSections = async (periodId, gradeId) => {
       s.*,
       g.name as grade_name,
       p.name as teacher_name,
-      p."lastName" as teacher_lastName,
+      p."lastName" as "teacher_lastName",
       ap.name as academic_period_name,
       (SELECT COUNT(*) FROM "enrollment" e WHERE e."sectionID" = s.id) as student_count
     FROM "section" s

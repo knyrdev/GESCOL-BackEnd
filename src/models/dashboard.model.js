@@ -194,7 +194,7 @@ export class DashboardModel {
           b.name as brigade_name,
           COUNT(DISTINCT sb."studentID") as student_count, -- Count distinct students
           p.name as teacher_name,
-          p."lastName" as teacher_lastName,
+          p."lastName" as "teacher_lastName",
           btd."dateI" as assignment_date,
           COUNT(CASE WHEN s.sex = 'Masculino' THEN 1 END) as male_students,
           COUNT(CASE WHEN s.sex = 'Femenino' THEN 1 END) as female_students
@@ -269,7 +269,7 @@ export class DashboardModel {
           COUNT(CASE WHEN e.repeater = true THEN 1 END) as repeaters,
           COUNT(CASE WHEN e.repeater = false THEN 1 END) as new_students,
           p.name as teacher_name,
-          p."lastName" as teacher_lastName
+          p."lastName" as "teacher_lastName"
         FROM "enrollment" e
         JOIN "section" sec ON e."sectionID" = sec.id
         JOIN "grade" g ON sec."gradeID" = g.id
@@ -332,7 +332,7 @@ export class DashboardModel {
           g.name as grade_name,
           sec.seccion,
           p.name as teacher_name,
-          p."lastName" as teacher_lastName,
+          p."lastName" as "teacher_lastName",
           COUNT(e."studentID") as student_count
         FROM "section" sec
         JOIN "grade" g ON sec."gradeID" = g.id

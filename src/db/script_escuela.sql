@@ -304,3 +304,6 @@ ALTER TABLE "attendance" ADD FOREIGN KEY ("sectionID") REFERENCES "section" ("id
 
 ALTER TABLE "attendanceDetails" ADD FOREIGN KEY ("attendanceID") REFERENCES "attendance" ("id");
 ALTER TABLE "attendanceDetails" ADD FOREIGN KEY ("studentID") REFERENCES "student" ("id");
+
+-- Agregar estado activo a representantes
+ALTER TABLE "representative" ADD COLUMN "is_active" boolean DEFAULT TRUE;

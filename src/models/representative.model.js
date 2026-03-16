@@ -65,7 +65,11 @@ const createRepresentative = async (representativeData) => {
 const getRepresentativeByCi = async (ci) => {
   try {
     const query = {
-      text: `SELECT * FROM "representative" WHERE ci = $1`,
+      text: `
+        SELECT *
+        FROM "representative"
+        WHERE ci = $1 AND is_active = TRUE
+      `,
       values: [ci],
     }
     const { rows } = await db.query(query)
@@ -81,15 +85,10 @@ const getAllRepresentatives = async () => {
   try {
     const query = {
       text: `
-        SELECT 
-          r.*,
-          COUNT(s.id) as students_count
-        FROM "representative" r
-        LEFT JOIN "student" s ON r.ci = s."representativeID"
-        GROUP BY r.ci, r.name, r."lastName", r."telephoneNumber", r.email, 
-                 r."maritalStat", r.profesion, r.birthday, r."telephoneHouse", 
-                 r."roomAdress", r."workPlace", r."jobNumber", r.created_at, r.updated_at
-        ORDER BY r.created_at DESC
+        SELECT *
+        FROM "representative"
+        WHERE is_active = TRUE
+        ORDER BY created_at DESC
       `,
     }
     const { rows } = await db.query(query)
@@ -150,9 +149,25 @@ const updateRepresentative = async (ci, representativeData) => {
   }
 }
 
+// Desactivar representante (Soft Delete)
+const deactivateRepresentative = async (ci) => {
+  try {
+    const query = {
+      text: `UPDATE "representative" SET is_active = FALSE, updated_at = CURRENT_TIMESTAMP WHERE ci = $1 RETURNING *`,
+      values: [ci],
+    }
+    const { rows } = await db.query(query)
+    return rows[0]
+  } catch (error) {
+    console.error("Error in deactivateRepresentative:", error)
+    throw error
+  }
+}
+
 export const RepresentativeModel = {
   createRepresentative,
   getRepresentativeByCi,
   getAllRepresentatives,
   updateRepresentative,
+  deactivateRepresentative,
 }

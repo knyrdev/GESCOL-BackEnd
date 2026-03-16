@@ -380,6 +380,29 @@ const getAcademicHistoryByStudent = async (studentID) => {
   const { rows } = await db.query(query);
   return rows;
 };
+// Obtener estudiantes por representante
+const getStudentsByRepresentative = async (representativeCI) => {
+  try {
+    const query = {
+      text: `
+        SELECT 
+          s.*,
+          ss.descripcion as status_description
+        FROM "student" s
+        LEFT JOIN "status_student" ss ON s.status_id = ss.id
+        WHERE s."representativeID" = $1
+        ORDER BY s.created_at DESC
+      `,
+      values: [representativeCI],
+    };
+    const { rows } = await db.query(query);
+    return rows;
+  } catch (error) {
+    console.error("Error in getStudentsByRepresentative:", error);
+    throw error;
+  }
+};
+
 export const StudentModel = {
   createStudentRegistry,
   getRegisteredNotEnrolledStudents,
@@ -390,5 +413,6 @@ export const StudentModel = {
   updateStudent,
   deleteStudent,
   createAcademicHistory,
-  getAcademicHistoryByStudent
+  getAcademicHistoryByStudent,
+  getStudentsByRepresentative
 };

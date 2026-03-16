@@ -23,6 +23,9 @@ router.get("/registered/notEnrolled", StudentController.getRegisteredNotEnrolled
 // Buscar estudiante para inscripción
 router.get("/inscription/:ci", StudentController.findStudentForInscription);
 
+// Buscar estudiantes por CI de representante
+router.get("/representative/:ci", StudentController.getStudentsByRepresentative);
+
 // Buscar estudiante por CI (general)
 router.get("/:ci", StudentController.findStudentByCi);
 

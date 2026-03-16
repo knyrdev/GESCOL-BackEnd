@@ -120,6 +120,20 @@ const getHistoryByStudent = async (req, res, next) => {
   }
 }
 
+const getStudentsByRepresentative = async (req, res, next) => {
+  try {
+    const { ci } = req.params
+    const students = await StudentService.getStudentsByRepresentative(ci)
+    res.json({
+      ok: true,
+      students,
+      total: students.length,
+    })
+  } catch (error) {
+    next(error)
+  }
+}
+
 export const StudentController = {
   createStudent,
   getRegisteredNotEnrolledStudents,
@@ -130,4 +144,5 @@ export const StudentController = {
   deleteStudent,
   addAcademicHistory,
   getHistoryByStudent,
+  getStudentsByRepresentative,
 }

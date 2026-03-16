@@ -1,6 +1,6 @@
 import { StudentModel } from "../models/student.model.js"
 import { RepresentativeModel } from "../models/representative.model.js"
-import { AppError, badRequest, notFound } from "../utils/AppError.js"
+import { badRequest, notFound } from "../utils/AppError.js"
 
 class StudentService {
     /**
@@ -102,6 +102,12 @@ class StudentService {
      */
     async getAcademicHistoryByStudent(studentId) {
         return await StudentModel.getAcademicHistoryByStudent(studentId)
+    }
+    /**
+     * Get students by representative CI.
+     */
+    async getStudentsByRepresentative(ci) {
+        return await StudentModel.getStudentsByRepresentative(ci)
     }
 }
 
